@@ -1,0 +1,14 @@
+{{ 'style.plp-product.css' | asset_url | stylesheet_tag }}
+<div class="product">
+    <div class="product__img-container">
+        <div class="product__label">
+            <p class="product__label-text">Best Seller</p>
+        </div>
+        <img src="{{ 'hanging-circle' | asset_img_url: 'large' }}" alt="" class="product__img">
+    </div>
+    <p class="title">Product name</p>
+    <div class="product__star-group">
+        star star
+    </div>
+    <p class="title">$34.00</p>
+</div>

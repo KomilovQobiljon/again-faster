@@ -1,0 +1,34 @@
+.collection-banner__container{
+    padding: 0 8rem 6rem 8rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.collection-banner{
+    width: calc((100% - 40px)/2);
+    margin-bottom: 4rem;
+}
+.collection-banner__img-container{
+    width: 100%;
+}
+.collection-banner__heading{
+    margin: 2.4rem 0;
+}
+.collection-banner__url{
+    font-family: 'Open Sans',sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.175em;
+    text-transform: uppercase;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid #000000;
+    transition: padding .2s;
+    cursor: pointer;
+}
+.collection-banner__url:hover{
+    padding-bottom: 0.2rem;
+}
+.collection-banner__img{
+    width: 100%;
+}

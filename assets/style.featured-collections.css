@@ -1,0 +1,38 @@
+.featured-collections{
+    padding: 10rem 4rem 10rem 4rem;
+}
+.featured-collections__item{
+    width: 100%;
+}
+.featured-cta-arrow{
+    fill: #000000;
+}
+.swiper-featured{
+    padding-bottom: 4rem;
+}
+.wrapper-featured{
+    width: 100%;
+}
+.cell-featured{
+    margin-right: 1.6rem;
+    width: 25%;
+}
+.product__img{
+    margin-bottom: 1rem;
+    width: 100%;
+}
+.product__title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product__title:hover{
+    cursor: pointer;
+}
+.product__title:hover > .product__arrow {
+    display: inline;
+}
+.product__arrow{
+    display: none;
+    margin-left: 1rem;
+}

@@ -1,0 +1,109 @@
+.plp{
+    color: #000000;
+    padding: 4rem 4rem 6rem 4rem;
+    text-align: center;
+}
+.plp__collection-group{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0.175em;
+    text-transform: uppercase;
+    color: #c4c4c4;
+    margin: 1rem 0 4rem 0;
+}
+
+.plp__collection-group > a:not(:last-child)::after{
+    content: '/';
+    display: inline;
+    margin-left: 0.5rem;
+}
+.plp__collection-url{
+    border-bottom: 2px solid transparent;
+    transition: border 0.3s ease-out;
+}
+.plp__collection-url:hover{
+    color: #000000;
+    border-bottom: 2px solid #c2a578;
+}
+.plp__grid{
+    display: grid;
+    grid-template-columns: repeat(3, 32%);
+    grid-row-gap: 3rem;
+    justify-content: space-between;
+}
+
+.plp-product{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.product__img-url{
+    width: 100%;
+}
+.product__img-container{
+    position: relative;
+    background-color: #f1f1f1;
+    width: 100%;
+}
+.product__img{
+    width: 100%;
+}
+.product__label-group{
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+}
+.product__label-group > p:not(:last-child){
+    margin-right: 0.8rem;
+}
+.product__label{
+    width: 9rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: 'Open Sans',sans-serif;
+    line-height: 167%;
+    text-transform: capitalize;
+}
+.product__label--bs{
+    background-color: #000000;
+    color: #ffffff;
+}
+.product__label--fsh{
+    color: #000000;
+    background-color: #ffffff;
+}
+.product__label--po{
+    color: #000000;
+    background-color: transparent;
+    border: 1px solid #c4c4c4;
+}
+.product__label--sale{
+    color: #ffffff;
+    background-color: #9E0404;
+}
+.product__soldout{
+    opacity: 0.5;
+}
+.product__soldout-p{
+    padding: 0.4rem 1.5rem;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    background-color: #ffffff;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 167.5%;
+    color: #000000;
+    min-width: 26.6rem;
+    z-index: 10;
+}

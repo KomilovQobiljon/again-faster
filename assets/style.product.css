@@ -1,0 +1,33 @@
+.best-sellers__rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+
+.best-sellers__rating > input{ display:none;}
+
+.best-sellers__rating > label {
+    position: relative;
+    width: 1.1em;
+    font-size: 15vw;
+    color: #FFD700;
+    cursor: pointer;
+}
+
+.best-sellers__rating > label::before{
+    content: "\2605";
+    position: absolute;
+    opacity: 0;
+}
+
+.best-sellers__rating > label:hover:before,
+.best-sellers__rating > label:hover ~ label:before {
+    opacity: 1 !important;
+}
+
+.best-sellers__rating > input:checked ~ label:before{
+    opacity:1;
+}
+
+.best-sellers__rating:hover > input:checked ~ label:before{ opacity: 0.4; }

@@ -1,0 +1,67 @@
+
+{{ 'style.featured-collections.css' | asset_url | stylesheet_tag }}
+
+<div class="featured-collections">
+    <div class="swiper swiper-featured">
+        <div class="swiper-wrapper wrapper-featured">
+            {% for block in section.blocks %}
+                <div class="swiper-slide cell-featured">
+                    <div class="featured-collections__item">
+                        <img src="{{block.settings.collection.image | img_url: 'medium'}}" alt="" class="product__img">
+                        <h4 class="product__title title">
+                            {{block.settings.collection.title}}
+                            {% render 'icon-right-arrow-black', class:'product__arrow' %}
+                        </h4>
+                    </div>
+                </div>
+            {% endfor%}
+        </div>
+        <div class="swiper-scrollbar scrollbar-featured"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" ></script>
+
+{% schema %}
+    {
+        "name": "Featured Collections",
+        "tag":"section",
+        "class":"section",
+        "settings":[
+            {
+                "type": "range",
+                "id": "products_to_show",
+                "min": 2,
+                "max": 12,
+                "step": 1,
+                "default": 4,
+                "label": "t:sections.featured-collection.settings.products_to_show.label"
+            }
+        ],
+        "blocks":[
+            {
+                "name":"collection",
+                "type":"collection",
+                "settings":[
+                    {
+                        "type": "collection",
+                        "id": "collection",
+                        "label":"featured-collections.settings.label"
+                    }
+                ]
+            }
+            
+        ]
+
+    }
+{% endschema %}
+<script>
+    const variable = document.querySelector('.swiper-featured');
+    const swiperFeatured = new Swiper('.swiper-featured',{
+        slidesPerView: 4,
+        spaceBetween: 16,
+        scrollbar: {
+            el: '.scrollbar-featured',
+        },
+    })
+</script>

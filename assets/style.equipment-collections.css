@@ -1,0 +1,48 @@
+.equipments-collection__container{
+    color: #000000;
+    padding: 4rem;
+}
+.equipments-collection__header{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    padding-bottom: 4rem;
+}
+.header__content{
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.header__content-eyebrow{
+    margin-bottom: 1.6rem;
+}
+.header__content-cta{
+    margin-top: 4rem;
+}
+.header__image-group{
+    grid-column: 2/3;
+    position: relative;
+    height: calc(79rem + 7.7rem);
+}
+.header__image--small{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30.4rem;
+}
+.header__image--big{
+    width: 57rem;
+}
+.header__image--small{
+    width: 30.4rem;
+}
+
+.equipments-collection__grid{
+    display: grid;
+    grid-template-columns: repeat(4, 24%);
+    justify-content: space-between;
+}
+.grid__collection-img{
+    width: 100%;
+}

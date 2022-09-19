@@ -1,0 +1,68 @@
+{{ 'style.product.css' | asset_url | stylesheet_tag }}
+
+<div class="best-sellers">
+    <div class="swiper swiper-best-sellers">
+        <div class="swiper-wrapper wrapper-best-sellers">
+            <div class="best-sellers__item">
+                <div class="best-sellers__img"></div>
+                <h4 class="title">performance tee</h4>
+                <div class="best-sellers__rating">
+                    <input type="radio" name="rating" value="5" id="{{product.id}}5">
+                    <label for="{{product.id}}5">☆</label>
+                    <input type="radio" name="rating" value="5" id="{{product.id}}4">
+                    <label for="{{product.id}}4">☆</label>
+                    <input type="radio" name="rating" value="5" id="{{product.id}}3">
+                    <label for="{{product.id}}3">☆</label>
+                    <input type="radio" name="rating" value="5" id="{{product.id}}2">
+                    <label for="{{product.id}}2">☆</label>
+                    <input type="radio" name="rating" value="5" id="{{product.id}}1">
+                    <label for="{{product.id}}1">☆</label>
+                </div>
+                <p class="title">$34.00</p>
+            </div>
+            {% for product in collections['best-sellers'].products %}
+                <div class="swiper-slide slide-best-sellers">
+                    <div class="best-sellers__item">
+                        <div class="best-sellers__img"></div>
+                        <h4 class="title">performance tee</h4>
+                        <div class="best-sellers__rating">
+                            <input type="radio" name="rating" value="5" id="{{product.id}}5">
+                            <label for="{{product.id}}5">☆</label>
+                            <input type="radio" name="rating" value="5" id="{{product.id}}4">
+                            <label for="{{product.id}}4">☆</label>
+                            <input type="radio" name="rating" value="5" id="{{product.id}}3">
+                            <label for="{{product.id}}3">☆</label>
+                            <input type="radio" name="rating" value="5" id="{{product.id}}2">
+                            <label for="{{product.id}}2">☆</label>
+                            <input type="radio" name="rating" value="5" id="{{product.id}}1">
+                            <label for="{{product.id}}1">☆</label>
+                        </div>
+                        <p class="title">$34.00</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-scrollbar scrollbar-best-sellers"></div>
+    </div>
+</div>
+
+<style>
+    .best-sellers__img{
+        background-image: url('{{ 'performance-tee.png' | asset_img_url }}');
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" ></script>
+<!-- {% schema %}
+
+{% endschema %} -->
+<script>
+    const bestSellers = document.querySelector('.swiper-best-sellers');
+    const swiperBestSellers = new Swiper(bestSellers,{
+        slidesPerView: 4,
+        spaceBetween: 16,
+        scrollbar:{
+            el:'.scrollbar-best-sellers'
+        }
+    })
+</script>

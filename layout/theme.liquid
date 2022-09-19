@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{{ page_title }}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="{{ page_description | escape }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" defer ></script>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    >
+    {{ content_for_header }}
+    <!-- Header hook for plugins -->
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    {{ 'style.base.css' | asset_url | stylesheet_tag }}
+    {{ 'style.utils.css' | asset_url | stylesheet_tag }}
+    {{ 'style.home.css' | asset_url | stylesheet_tag }}
+    {{ 'style.typography.css' | asset_url | stylesheet_tag }}
+   
+  </head>
+  <body>
+    <div class="container home">
+      {% section 'announcement' %}
+      {% section 'header' %}
+      <main role="main" class="main">
+        {{ content_for_layout }}
+      </main>
+      {% section 'footer' %}
+    </div>
+    <script>
+      const myUrl = window.location.href.split('/')[3].startsWith('?')
+      if(myUrl){
+        const container = document.querySelector('.container')
+      }
+    </script>
+  </body>
+</html>

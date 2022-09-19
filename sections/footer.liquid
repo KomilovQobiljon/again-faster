@@ -1,0 +1,74 @@
+{{ 'style.footer.css' | asset_url | stylesheet_tag }}
+<div class="footer">
+    <img src="{{section.settings.image_background.src | img_url: '449x' }}" alt="" class="footer__img">
+    <div class="footer__form-container">
+        <h4 class="link-group__heading">newsletter</h4>
+        {% form 'contact' %}
+            <div class="footer__email">
+                <input type="email" name="contact[email]" id="email" placeholder="Enter your email" class="footer__input" />
+                {% render 'icon-right-arrow-black', class: 'footer__email-icon' %}
+            </div>
+        {% endform %}
+        <div class="form__socials">
+            {% for block in section.blocks %}
+                <a href="{{block.settings.social_url}}" class="form__instagram">
+                    <img src='{{ block.settings.social_name_img.src | img_url: 'medium' }}' alt="" class="socials__icon">
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="footer__link-container">
+        <div class="link-group">
+            <h4 class="link-group__heading">again faster</h4>
+            <ul class="link-group__ul">
+                {% for link in linklists.footer.links %}
+                    <li class="link-group__li">
+                        <a href="{{link.url}}" class="link">{{link.title}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="link-group">
+            <h4 class="link-group__heading">get help</h4>
+            <ul class="link-group__ul">
+                {% for link in linklists['footer-get-help'].links %}
+                    <li class="link-group__li">
+                        <a href="{{link.url}}" class="link">{{link.title}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name":"Footer",
+    "settings":[
+        {
+            "type":"image_picker",
+            "id":"image_background",
+            "label":"Footer Logo"
+        }
+    ],
+    "blocks":[
+        {
+            "name":"social_url",
+            "type":"social",
+            "settings":[
+                {
+                    "type":"url",
+                    "id":"social_url",
+                    "label":"Social Url"
+                },
+                {
+                    "type":"image_picker",
+                    "id":"social_name_img",
+                    "label":"Social Name"
+                }
+            ]
+
+        }
+    ]
+}
+{% endschema %}

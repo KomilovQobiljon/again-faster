@@ -1,0 +1,68 @@
+{{ 'style.plp.css' | asset_url | stylesheet_tag }}
+{% paginate collection.products by limit %} 
+  <div class="plp">
+    <h1 class="heading--tertiary mb--md">{{ collection.title }}</h1>
+    <div class="plp__collection-group">
+      {% for collection in collections %}
+        {% if collection.title == 'Test equipment collection' %}
+          {% assign selected_collections = collection.metafields.accentuate.collections | split:'|' %}
+          {% for collection in selected_collections %}
+            <a href="{{ collections[collection].url  }}" class="plp__collection-url">{{collections[collection].title}}</a>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="plp__grid">
+      {% for product in collection.products %}
+        <div class="plp-product">
+          {% if product.available %}
+            <a href="{{ product.url | within: collection }}" class="product__img-url mb--sm">
+              <div class="product__img-container">
+                <div class="product__label-group">
+                  <p class="product__label product__label--bs">Best Seller</p>
+                  <p class="product__label product__label--fsh">free shipping</p>
+                  <p class="product__label product__label--po">Pre-Order</p>
+                </div>
+                <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img">
+              </div>
+            </a>
+          {% endif %}
+          {% unless product.available %}
+          <a href="{{ product.url | within: collection }}" class="product__img-url mb--sm">
+            <div class="product__img-container">
+              <p class="product__soldout-p">Sold Out - Get notified when back in stock</p>
+              <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img product__soldout">
+            </div>
+          </a>
+          {% endunless %}
+          <a href="{{ product.url | within: collection }}" class="title mb--sm">{{ product.title }}</a>
+          <div class="product__rating mb--sm">
+            {% render 'icon-star' %}
+            {% render 'icon-star' %}
+            {% render 'icon-star' %}
+            {% render 'icon-star' %}
+            {% render 'icon-star' %}
+          </div>
+          <p class="title-grey">{{ product.price | money }}</p>
+        </div>
+      {% else %}
+        <p>no matches</p>
+      {% endfor %}
+    </div>
+    <!-- {% if paginate.pages > 1 %}
+      {{ paginate | default_pagination }}
+    {% endif %} -->
+  </div>
+{% endpaginate %} 
+{% schema %}
+{
+  "name": "Collection",
+  "settings":[
+    {
+      "type":"collection",
+      "id":"collection",
+      "label":"collection.settings.collection.label"
+    }
+  ]
+}
+{% endschema %}

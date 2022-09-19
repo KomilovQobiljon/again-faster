@@ -1,0 +1,44 @@
+{{ 'style.collection-banner.css' | asset_url | stylesheet_tag }}
+<div class="collection-banner__container">
+    {% for block in section.blocks %}
+        {% if block %}
+            <div class="collection-banner">
+                <div class="collection-banner__img-container">
+                    <img src="{{block.settings.collection.image | img_url: '620x'  }}" alt="" class="collection-banner__img">
+                </div>
+                <h3 class="heading--tertiary collection-banner__heading">{{block.settings.collection.title}}</h3>
+                <a href="#" class="collection-banner__url">
+                    {% assign beatles = block.settings.collection.title | split: " " %}
+                    shop {{ beatles | slice: 0}}
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+    "name":"Banner Collections",
+    "settings":[
+        {
+            "type":"image_picker",
+            "id":"image_background",
+            "label":"Footer Logo"
+        }
+    ],
+    "blocks":[
+        {
+            "name":"collection",
+            "type":"collection",
+            "settings":[
+                {
+                    "type": "collection",
+                    "id": "collection",
+                    "label":"collection-banner.settings.label"
+                }
+            ]
+        }
+        
+    ]
+}
+{% endschema %}

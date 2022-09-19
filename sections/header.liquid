@@ -1,0 +1,79 @@
+{{ 'style.header.css' | asset_url | stylesheet_tag }}
+{% if template=='index' %}
+  <header class="header">
+      <nav class="navigation"> 
+          <img class="navigation__logo" src="{{section.settings.logo.src | img_url: '240x'}}" alt="{{section.settings.logo.alt}}">
+          <ul class="navigation__list">
+          {% for link in linklists['again-faster-home-menu'].links %}
+            <li class="navigation__item">
+              <a class="navigation__link" href="{{ link.url }}">{{link.title}}</a>
+            </li>
+          {% endfor %}
+          </ul>
+          <div class="navigation__user">
+            <div class="navigation__icon">
+                {% render 'icon-search' %}
+                {% render 'icon-avatar' %}
+                {% render 'icon-bag' %}
+            </div>
+          </div>
+      </nav>
+  </header>
+{% endif %}
+{% unless template=='index' %}
+  <header class="header--second">
+    <nav class="navigation--second"> 
+      <img class="navigation__logo" src="{{section.settings.logo_black.src | img_url: '240x'}}" alt="{{section.settings.logo.alt}}">
+      <ul class="navigation__list navigation--black">
+      {% for link in linklists['again-faster-home-menu'].links %}
+        <li class="navigation__item">
+          <a class="navigation__link" href="{{ link.url }}">{{link.title}}</a>
+        </li>
+      {% endfor %}
+      </ul>
+      <div class="navigation__user">
+        <div class="navigation__icon">
+            {% render 'icon-search-black' %}
+            {% render 'icon-avatar-black' %}
+            {% render 'icon-bag-black' %}
+        </div>
+      </div>
+    </nav>
+  </header>
+{% endunless %}
+
+<script>
+  let headerUrl = window.location.href.split('/')[3].startsWith('?')
+  let navigationIcons = document.querySelector('.navigation__icon').children
+  Array.from(navigationIcons).forEach(item=>{
+    Array.from(item.children).forEach(item=>{
+      console.log('{{page.url}}')
+    })
+    if(headerUrl){
+      item.classList.add('icon--black')
+    }else{
+      item.classList.remove('icon--black')
+    }
+  })
+</script>
+  
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type":"image_picker",
+        "id":"logo_black",
+        "label":"Logo Black"
+      }
+    ],
+    "blocks": [
+  
+    ]
+  }
+  {% endschema %}
