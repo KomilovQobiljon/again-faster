@@ -71,15 +71,15 @@
     line-height: 167%;
     text-transform: capitalize;
 }
-.product__label--bs{
+.product__label--best-seller{
     background-color: #000000;
     color: #ffffff;
 }
-.product__label--fsh{
+.product__label--free-shipping{
     color: #000000;
     background-color: #ffffff;
 }
-.product__label--po{
+.product__label--pre-order{
     color: #000000;
     background-color: transparent;
     border: 1px solid #c4c4c4;

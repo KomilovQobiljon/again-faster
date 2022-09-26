@@ -1,0 +1,32 @@
+{{ 'style.cart.css' | asset_url | stylesheet_tag }}
+<div class="side-cart">
+    <div class="cart__header">
+        <h3 class="cart__heading">My cart</h3>
+        {% render 'icon-exit', className:'icon-exit' %}
+    </div>
+    <div class="side-cart__items">
+        <p>{{ item.variant }}</p>
+        {% for item in cart.items %}
+            <div class="side-cart__item">
+                <div class="item__image-wrapper">
+                    <img class="item__image" src="{{ item.image | img_url: '120x150' }}" alt="{{ item.title | escape }}" />
+                </div>
+                <div class="item__details item__details--one">
+                    <p class="item__heading title">{{item.title}}</p>
+                    <p class="p--secondary">{{item.variant.title}}</p>
+                    <div class="item__amount-container">
+                        {% render 'icon-minus' %}
+                        <p class="p--secondary item__amount">{{item.quantity}}</p>
+                        {% render 'icon-plus' %}
+                    </div>
+                </div>
+                <div class="item__details item__details--two">
+                    <p class="p--secondary">{{ item.price | money }}</p>
+                    <div class="item__cancel-container">
+                        {% render 'icon-cancel' %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

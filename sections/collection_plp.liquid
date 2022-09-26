@@ -1,15 +1,10 @@
 {{ 'style.plp.css' | asset_url | stylesheet_tag }}
-{% paginate collection.products by limit %} 
+{% paginate collection.products by limit %}
   <div class="plp">
     <h1 class="heading--tertiary mb--md">{{ collection.title }}</h1>
     <div class="plp__collection-group">
-      {% for collection in collections %}
-        {% if collection.title == 'Test equipment collection' %}
-          {% assign selected_collections = collection.metafields.accentuate.collections | split:'|' %}
-          {% for collection in selected_collections %}
-            <a href="{{ collections[collection].url  }}" class="plp__collection-url">{{collections[collection].title}}</a>
-          {% endfor %}
-        {% endif %}
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.collection.url  }}" class="plp__collection-url">{{ block.settings.collection.title }}</a>
       {% endfor %}
     </div>
     <div class="plp__grid">
@@ -19,9 +14,9 @@
             <a href="{{ product.url | within: collection }}" class="product__img-url mb--sm">
               <div class="product__img-container">
                 <div class="product__label-group">
-                  <p class="product__label product__label--bs">Best Seller</p>
-                  <p class="product__label product__label--fsh">free shipping</p>
-                  <p class="product__label product__label--po">Pre-Order</p>
+                  {% for tag in product.tags %}
+                    <p class="product__label product__label--{{ tag | downcase }}" >{{ tag | split: '-' | join: ' ' }}</p>
+                  {% endfor %}
                 </div>
                 <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img">
               </div>
@@ -61,8 +56,21 @@
     {
       "type":"collection",
       "id":"collection",
-      "label":"collection.settings.collection.label"
+      "label":"collection.label"
     }
+  ],
+  "blocks":[
+    {
+        "name":"collection",
+        "type":"collection",
+        "settings":[
+          {
+            "type":"collection",
+            "id":"collection",
+            "label":"collection.label"
+          }
+        ]
+    }        
   ]
 }
 {% endschema %}
