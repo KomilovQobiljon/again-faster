@@ -4,7 +4,7 @@
     <h1 class="heading--tertiary mb--md">{{ collection.title }}</h1>
     <div class="plp__collection-group">
       {% for block in section.blocks %}
-        <a href="{{ block.settings.collection.url  }}" class="plp__collection-url">{{ block.settings.collection.title }}</a>
+        <a href="{{ block.settings.collection.url  }}" class="plp__collection-url">{{ block.settings.collection.title }}</a> {% unless forloop.last %}<span class="plp__collection-url-slash">/</span>{% endunless %}
       {% endfor %}
     </div>
     <div class="plp__grid">
@@ -21,24 +21,41 @@
                 <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img">
               </div>
             </a>
+
+            <a href="{{ product.url | within: collection }}" style="pointer-events: none;" class="title mb--sm">{{ product.title }}</a>
+            {%- comment -%} <div class="product__rating mb--sm">
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+              {% render 'icon-star' %}
+            </div> {%- endcomment -%}
+            <div class="mb--sm">
+              <div class="yotpo bottomLine"
+                data-product-id="{{ product.id }}"
+              >
+              </div>
+            </div>
+            
+            <p class="title-grey">{{ product.price | money }}</p>
           {% endif %}
           {% unless product.available %}
-          <a href="{{ product.url | within: collection }}" class="product__img-url mb--sm">
-            <div class="product__img-container">
-              <p class="product__soldout-p">Sold Out - Get notified when back in stock</p>
-              <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img product__soldout">
+            <a href="{{ product.url | within: collection }}" style="pointer-events: none;" class="product__img-url mb--sm">
+              <div class="product__img-container">
+                <p class="product__soldout-p">Sold Out - Get notified when back in stock</p>
+                <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img product__soldout">
+              </div>
+            </a>
+          
+            <a href="{{ product.url | within: collection }}" style="pointer-events: none;" class="title mb--sm">{{ product.title }}</a>
+            <div class="mb--sm">
+              <div class="yotpo bottomLine"
+                data-product-id="{{ product.id }}"
+              >
+              </div>
             </div>
-          </a>
+            <p class="title-grey">{{ product.price | money }}</p>
           {% endunless %}
-          <a href="{{ product.url | within: collection }}" class="title mb--sm">{{ product.title }}</a>
-          <div class="product__rating mb--sm">
-            {% render 'icon-star' %}
-            {% render 'icon-star' %}
-            {% render 'icon-star' %}
-            {% render 'icon-star' %}
-            {% render 'icon-star' %}
-          </div>
-          <p class="title-grey">{{ product.price | money }}</p>
         </div>
       {% else %}
         <p>no matches</p>

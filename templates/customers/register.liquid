@@ -1,21 +1,43 @@
 <!-- /templates/customers/register.liquid -->
+{{ 'style.create-customer.css' | asset_url | stylesheet_tag }}
+<div class="create-customer__container">
+    <div class="create-customer__container--inner">
+        <h3 class="heading--tertiary create-customer__heading">Create an account</h3>
+        {% form 'create_customer' %}
+            {{ form.errors | default_errors }}
+            <div class="create-customer__name">
+                <div class="name__first-name">
+                    <label class="p--secondary " for="first_name">First Name</label>
+                    <div class="form__input-container">
+                        <input class="form__input" type="text" value="" name="customer[first_name]" placeholder="Andy" required />
+                    </div>
+                </div>
+                <div class="name__last-name">
+                    <label class="p--secondary " for="last_name">Last Name</label>
+                    <div class="form__input-container">
+                        <input class="form__input" type="text" value="" name="customer[last_name]" placeholder="Smith" required/>
+                    </div>
+                </div>
+            </div>
+            
 
-{% form 'create_customer' %}
+            <label class=" p--secondary" for="email">Email Address</label>
+            <div class="form__input-container">
+                <input class="form__input" type="email" value="" name="customer[email]" placeholder="andy@avexdesigns.com" required />
+            </div>
 
-{{ form.errors | default_errors }}
+            <label class=" p--secondary" for="password">Password</label>
+            <div class="form__input-container">
+                <input class="form__input" type="password" value="" name="customer[password]" placeholder="• • • • • • • •" required />
+            </div>
 
-<label for="first_name">First Name</label>
-<input type="text" value="" name="customer[first_name]" size="30" />
+            <input class="form__input-submit" type="submit" value="Create an account" />
 
-<label for="last_name">Last Name</label>
-<input type="text" value="" name="customer[last_name]" size="30" />
+        {% endform %}
+        <div class="redirect">
+            <p class="p--secondary mb--md mt--md">Already have an account</p>
+            <a class="btn--secondary redirect--btn" href="{{routes.account_login_url}}">log in</a>
+        </div>
+    </div>
+</div>
 
-<label for="email">Email Address</label>
-<input type="email" value="" name="customer[email]" size="30" />
-
-<label for="password">Password</label>
-<input type="password" value="" name="customer[password]" size="30" />
-
-<input type="submit" value="Create" />
-
-{% endform %}

@@ -17,6 +17,11 @@
 .header__content-eyebrow{
     margin-bottom: 1.6rem;
 }
+.header__content-eyebrow::before{
+    content: '/';
+    margin-right: 0.5rem;
+    color: var(--color-primary-3);
+}
 .header__content-cta{
     margin-top: 4rem;
 }
