@@ -1,0 +1,239 @@
+{{ 'style.product-customone.css' | asset_url | stylesheet_tag }}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+<div class="pdp">
+    <script>console.log({{product | json }})</script>
+    <div class="pdp__details">
+        <div class="swiper details__img-carousel">
+            <div class="swiper-wrapper details__img-wrapper">
+                {% for image in product.images %}
+                    <div class="swiper-slide details__img-slide">
+                        <a href="#" class="details__img-url">
+                            <img src="{{ image.src | img_url: '1000x' }}" alt="{{ image.alt | escape }}" class="details__img">
+                        </a>
+                    </div>  
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination details__img-pagination"></div>
+        </div>
+        <div class="details__info">
+            <div class="info__container">
+                <form action="">
+                    <h3 class="heading--tertiary mb--sm">{{product.title}}</h3>
+                    <p class="p--primary info__price mb--sm">{{ product.price | money }}</p>
+                    <div class="yotpo bottomLine" 
+                        data-product-id="{{ product.id }}"
+                    >
+                    </div>
+                    <div class="info__monthly-payment mb--md">
+                        <img src="{{ 'paymentvendor.png' | asset_img_url: '40x16' }}" alt="" class="monthly-payment__img">
+                        <p class="monthly-payment__p p--primary">pay as low as 56/mo Learn More</p>
+                    </div>
+                    <p class="p--primary info__description">
+                    {{ product.description }}
+                    </p>
+                    <div class="purchase__type">
+                        <div class="purchase__type-container">
+                            <input type="radio" checked="checked" id="one-time-purchase" name="purchaseType" data-price="{{product.price}}">
+                            <span class="purchase__type-checkmark"></span>
+                            <p class="purchase__type-text p--primary">One time purchase</p>
+                        </div>
+                        <div class="purchase__type-container">
+                            <input type="radio" name="purchaseType" id="subscribe-and-save" data-price="">
+                            <span class="purchase__type-checkmark"></span>
+                            <p class="purchase__type-text p--primary">Subscribe & Save</p>
+                            <select>
+                                {% for sellingPlan in product.selling_plan_groups[0].selling_plans %}
+                                    <option value="{{sellingPlan}}" data-price="{{sellingPlan.price_adjustments[0].value}}" data-selling-plan-id="{{sellingPlan.id}}">{{sellingPlan.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    {% if product.has_only_default_variant %}
+                        <p class="heading--tertiary mb--md" id="product__id" 
+                            data-selling-plan-id=""  
+                            data-product-id="{{product.selected_or_first_available_variant.id}}" >{{ product.title }} 
+                            <span> does not have any variants</span>
+                        </p>
+                    {% else %}
+                        <div class="product-variant__container-over">
+                            <div class="product-variant__container">
+                                {% for variant in product.variants %}
+                                    {% assign price = variant.price %}
+                                    {% assign quantity = variant.inventory_quantity %}
+                                    <div class="product-variant">
+                                        <input type="radio" 
+                                            name="radio-{{product.id}}" 
+                                            id="{{ variant.id }}" 
+                                            {% if variant == product.selected_or_first_available_variant %} 
+                                                checked 
+                                            {% endif %} 
+                                            value="{{ variant.id }}" 
+                                            {% if variant.inventory_quantity == 0 %} disabled {% endif %}
+                                            class="product-variant__input" 
+                                        >
+                                        <label 
+                                            class="p--primary checkmark product-variant__price{% if quantity == 0 %} disabled {% endif %}" 
+                                            for="{{ variant.id }}" 
+                                            data-price="{{price}}"
+                                        >
+                                            {{ variant.title }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {%for p in pages %}
+                        <p class="p--primary">{{p.title}}</p>
+                    {%endfor%}
+                    <p class="product__free-shipping">Available for Free shipping</p>
+                    <input type="submit" value="Add to cart" id="product__add-to-cart" class="btn--primary">
+                </form>
+            </div>
+            <div class="info__fbw">
+                <h4 class="heading--quaternary mb--md">Frequently bought with</h4>
+                <div class="info__fbw-container">   
+                    {% assign handles = product.metafields.accentuate.frequently_bought_with | split: '|' %}
+                    {% for fbwProduct in handles %}
+                        {% if all_products[fbwProduct].available %}
+                            <div class="fbw__product">
+                                <img src="{{ all_products[fbwProduct].featured_image | img_url: 'medium' }}" alt="" class="fbw__product-img">
+                                <div class="fbw__details">
+                                    <p class="p--primary fbw__title">{{ all_products[fbwProduct].title }}</p>
+                                    <p class="fbw__cta" data-productID="{{ all_products[fbwProduct].first_available_variant.id }}">Add to cart</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pdp__sections">
+        {% assign banner_html = product.metafields.accentuate.banner_html %}
+        {% assign banner_img = product.metafields.accentuate.banner_img %}
+        {% for item in (1..banner_html.size) %}
+            <div class="pdp__banner {% if forloop.index > 1 %} pdp__banner--secondary {% endif %}">
+                <div class="pdp__banner-text">
+                    {% if banner_html[forloop.index0] != blank %}
+                        {{ banner_html[forloop.index0] }}
+                    {% endif %}
+                </div>
+                <div class="pdp__banner-img-container">
+                    <span class="pdp__banner-img-circle"></span>
+                    {% if banner_img[forloop.index0] != blank %}
+                        <img src="{{ banner_img[forloop.index0][0].src }}" alt="" loading="lazy" class="pdp__banner-img" >
+                    {% endif %}
+                </div>
+                <span class="line line--one"></span>
+                <span class="line line--two"></span>
+                <span class="line line--three"></span>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pdp__yml">
+        <h3 class="pdp__yml-heading">You might also like</h3>
+        {% assign ymlHandles = product.metafields.accentuate.you_might_also_like | split: '|' %}
+        {% for ymlProduct in ymlHandles %}
+            <div class="product mb--sm">
+                <div class="product__img-container">
+                    <div class="product__label-container">
+                        {% for tag in all_products[ymlProduct].tags %}
+                            <p class="product__label product__label--{{ tag | downcase }}" >{{ tag | split: '-' | join: ' ' }}</p>
+                        {% endfor %}
+                    </div>
+                    <img src="{{ all_products[ymlProduct].featured_image | img_url: 'medium' }}" alt="" class="product__img">
+                </div>
+                <a href="{{ all_products[ymlProduct].url }}" class="title mb--sm">{{ all_products[ymlProduct].title }}</a>
+                <div class="product__rating mb--sm">
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                    {% render 'icon-star' %}
+                </div>
+                <p class="title-grey">{{ all_products[ymlProduct].price | money }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="pdp__reviews">
+        <div class="yotpo-widget-instance" data-yotpo-instance-id="250384" data-yotpo-product-id="{{product.id}}" data-yotpo-name="{{ product.title | escape }}" data-yotpo-url="{{ shop.url }}{{ product.url }}" data-yotpo-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-yotpo-description="{{ product.description | escape }}"></div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" ></script>
+<script>
+    const pdpImages = document.querySelector('.details__img-carousel');
+    const pdpImagesSwiper = new Swiper('.details__img-carousel', {
+        direction: 'vertical',
+        pagination: {
+            el: '.details__img-pagination',
+            clickable: true,
+        },
+    });
+    const priceTag = document.querySelector('.info__price');
+    const variantContainer = document.querySelector('.product-variant__container')
+    
+    const badgeContainer = (price) => {
+        const opt = {
+            style: 'currency',
+            currency:'USD',
+        };
+        priceTag.innerHTML = new Intl.NumberFormat('en-US', opt).format(price / 100)
+    }
+
+    variantContainer?.addEventListener('click',function(e){
+        const targetContainer = e.target.closest('.product-variant');
+        const target = targetContainer.querySelector(':scope > .product-variant__price');
+
+        if(!target) return;
+        badgeContainer(target.dataset.price);
+    });
+
+    const purchaseType = document.querySelector('.purchase__type')
+    purchaseType.addEventListener('click',(e)=>{
+        const purchaseTypeInput = document.querySelector('input[name="purchaseType"]:checked')
+        if(purchaseTypeInput.id === 'one-time-purchase'){
+            badgeContainer(purchaseTypeInput.dataset.price);
+        }else if(purchaseTypeInput.id === 'subscribe-and-save'){
+            const select = purchaseType.getElementsByTagName('select')[0];
+            const selectedSubscription = select.options[select.selectedIndex];
+            const productIdForCart = document.querySelector('#product__id');
+            productIdForCart.dataset.sellingPlanId = selectedSubscription.dataset.sellingPlanId;
+            console.log(productIdForCart.dataset.sellingPlanId)
+        }
+    })
+
+    
+   
+
+    /*const options = {
+        method: 'GET',
+        headers: {accept: 'application/json', 'Content-Type': 'application/json'}
+    };
+    fetch('https://api.yotpo.com/v1/apps/app_key/reviews?utoken=utoken', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err)); */
+
+</script>
+{% schema %}
+    {
+        "name": "Product Description Page",
+        "blocks":[
+          {
+              "name":"You Might Also Like",
+              "type":"you-might-also-like",
+              "settings":[
+                {
+                  "type":"product",
+                  "id":"product",
+                  "label":"product.label"
+                }
+              ]
+          }
+                  
+        ]
+    }
+{% endschema %}

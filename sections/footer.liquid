@@ -4,9 +4,14 @@
     <div class="footer__form-container">
         <h4 class="link-group__heading">newsletter</h4>
         {% form 'contact' %}
+            {{ form.errors | default_errors }}
             <div class="footer__email">
                 <input type="email" name="contact[email]" id="email" placeholder="Enter your email" class="footer__input" />
-                {% render 'icon-right-arrow-black', class: 'footer__email-icon' %}
+                <div class="footer__email-submit ">
+                    <input type="submit" value="Create" id="email-submit__input" class="email-submit__input"/>
+                    <label for="email-submit__input">{% render 'icon-right-arrow-black', class: 'footer__email-icon' %}</label>
+                </div>
+                
             </div>
         {% endform %}
         <div class="form__socials">

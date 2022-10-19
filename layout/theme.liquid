@@ -33,12 +33,26 @@
         {{ content_for_layout }}
       </main>
       {% section 'footer' %}
+      {% section 'cart-modal' %}
     </div>
-    <script>
-      const myUrl = window.location.href.split('/')[3].startsWith('?')
-      if(myUrl){
-        const container = document.querySelector('.container')
-      }
-    </script>
+    {{ 'myJavascript.js' | asset_url | script_tag }}
+    <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/qRlMmoGXpZmTmSltpIqqgGAmcr0nJtk1jTSU70Ok" async></script>
+    <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Td6fR8"></script>
   </body>
 </html>
+
+<script>
+  // const sideCartIcon = document.querySelector('.side-cart-icon');
+  // const sideCartExit = document.querySelector('.icon-exit');
+  // const sideCart = document.querySelector('.side-cart');
+  // const addToCart = document.querySelector('#product__add-to-cart');
+  // addToCart.addEventListener('click',()=>{
+  //   sideCart.classList.toggle('open')
+  // })
+  // sideCartIcon.addEventListener('click',()=>{
+  //   sideCart.classList.toggle('open');
+  // })
+  // sideCartExit.addEventListener('click', ()=>{
+  //   sideCart.classList.toggle('open');
+  // })
+</script>

@@ -8,10 +8,12 @@
                 <div class="swiper-slide cell-featured">
                     <div class="featured-collections__item">
                         <img src="{{block.settings.collection.image | img_url: 'medium'}}" alt="" class="product__img">
-                        <h4 class="product__title title">
-                            {{block.settings.collection.title}}
-                            {% render 'icon-right-arrow-black', class:'product__arrow' %}
-                        </h4>
+                        <a href="{{ block.settings.collection.url }}" class="product__link">
+                            <h4 class="product__title title">
+                                {{block.settings.collection.title}}
+                                {% render 'icon-right-arrow-black', class:'product__arrow' %}
+                            </h4>
+                        </a>
                     </div>
                 </div>
             {% endfor%}

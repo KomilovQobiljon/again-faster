@@ -14,18 +14,17 @@
     margin: 1rem 0 4rem 0;
 }
 
-.plp__collection-group > a:not(:last-child)::after{
-    content: '/';
-    display: inline;
-    margin-left: 0.5rem;
-}
 .plp__collection-url{
     border-bottom: 2px solid transparent;
     transition: border 0.3s ease-out;
+    margin-right: 0.5rem;
 }
 .plp__collection-url:hover{
     color: #000000;
     border-bottom: 2px solid #c2a578;
+}
+.plp__collection-url-slash{
+    color: var(--color-primary-3);
 }
 .plp__grid{
     display: grid;
@@ -71,15 +70,15 @@
     line-height: 167%;
     text-transform: capitalize;
 }
-.product__label--bs{
+.product__label--best-seller{
     background-color: #000000;
     color: #ffffff;
 }
-.product__label--fsh{
+.product__label--free-shipping{
     color: #000000;
     background-color: #ffffff;
 }
-.product__label--po{
+.product__label--pre-order{
     color: #000000;
     background-color: transparent;
     border: 1px solid #c4c4c4;
@@ -106,4 +105,11 @@
     color: #000000;
     min-width: 26.6rem;
     z-index: 10;
+}
+
+/* Yotpo related styles */
+
+/* Makes review numbers next to stars invisible */
+.text-m{
+    display: none !important;
 }

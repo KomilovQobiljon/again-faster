@@ -12,13 +12,21 @@
           </ul>
           <div class="navigation__user">
             <div class="navigation__icon">
+              <div>
                 {% render 'icon-search' %}
-                {% render 'icon-avatar' %}
-                {% render 'icon-bag' %}
+              </div>
+              <div>
+                <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
+                  {% render 'icon-avatar' %}
+                </a>
+              </div>
+              <div>
+                {% render 'icon-bag', className: 'side-cart-icon' %}
+              </div>
             </div>
           </div>
       </nav>
-  </header>
+  </header> 
 {% endif %}
 {% unless template=='index' %}
   <header class="header--second">
@@ -33,9 +41,17 @@
       </ul>
       <div class="navigation__user">
         <div class="navigation__icon">
-            {% render 'icon-search-black' %}
-            {% render 'icon-avatar-black' %}
-            {% render 'icon-bag-black' %}
+            <div>
+              {% render 'icon-search-black' %}
+            </div>
+            <div>
+              <a href="{% if customer %}{{ routes.account_url }}{% endif %}{{ routes.account_login_url }}">
+                {% render 'icon-avatar-black' %}
+              </a>
+            </div>
+            <div>
+              {% render 'icon-bag-black', className: 'side-cart-icon' %}
+            </div>
         </div>
       </div>
     </nav>
@@ -47,7 +63,7 @@
   let navigationIcons = document.querySelector('.navigation__icon').children
   Array.from(navigationIcons).forEach(item=>{
     Array.from(item.children).forEach(item=>{
-      console.log('{{page.url}}')
+      
     })
     if(headerUrl){
       item.classList.add('icon--black')

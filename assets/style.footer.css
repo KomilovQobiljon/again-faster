@@ -23,10 +23,16 @@
 .form__socials > a:not(:last-child) {
     margin-right: 2rem;
 }
-.footer__email-icon{
+.footer__email-submit{
     position: absolute;
     top: 0;
     right: 0;
+}
+.email-submit__input{
+    display: none;
+}
+.footer__email-icon{
+    
 }
 .footer__email-icon:hover{
     cursor: pointer;

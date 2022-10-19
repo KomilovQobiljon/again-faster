@@ -4,7 +4,15 @@
     font-weight: 400;
     line-height: 167%;
 }
+.p--secondary{
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 167.5%;
+}
 .heading--primary{
+    font-family: 'Open Sans', sans-serif;
     font-size: 6rem;
     font-weight: 700;
     line-height: 130%;
@@ -12,10 +20,10 @@
     text-transform: uppercase;
 }
 .heading--secondary{
-    font-family: 'Open Sans';
+    font-family: 'Open Sans',sans-serif;
     font-weight: 700;
     font-size: 4rem;
-    line-height: 6.2rem;
+    line-height: 143%;
     letter-spacing: 0.175em;
     text-transform: uppercase;
 }
@@ -25,6 +33,23 @@
     font-size: 2.4rem;
     line-height: 130%;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+}
+.heading--quaternary{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 168%;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+.heading--penitentiary{
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 168%;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
@@ -61,6 +86,26 @@
     padding: 2.5rem;
     border: 1px solid #000000;
 }
-.cta-btn__icon{
 
+.btn--primary{
+    border: none;
+    width: 44.2rem;
+    height: 4.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary-2);
+    background-color: var(--color-primary-1);
+    text-transform: uppercase;
+}
+.btn--secondary{
+    width: 44.2rem;
+    height: 4.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary-1);
+    background-color: var(--color-primary-2);
+    border: 1px solid var(--color-primary-1);
+    text-transform: uppercase;
 }
