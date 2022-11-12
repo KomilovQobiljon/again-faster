@@ -7,7 +7,7 @@
             {% for block in section.blocks %}
                 <div class="swiper-slide cell-featured">
                     <div class="featured-collections__item">
-                        <img src="{{block.settings.collection.image | img_url: 'medium'}}" alt="" class="product__img">
+                        <img src="{{block.settings.collection.image | img_url: '328x334'}}" alt="" class="product__img">
                         <a href="{{ block.settings.collection.url }}" class="product__link">
                             <h4 class="product__title title">
                                 {{block.settings.collection.title}}
@@ -15,7 +15,7 @@
                             </h4>
                         </a>
                     </div>
-                </div>
+                </div> 
             {% endfor%}
         </div>
         <div class="swiper-scrollbar scrollbar-featured"></div>

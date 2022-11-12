@@ -1,0 +1,66 @@
+{{ 'style.page-banner.css' | asset_url | stylesheet_tag }}
+<div class="banner__group">
+    <h4 class="banner__group-heading--small heading--tertiary">{{section.settings.heading_small}}</h4>
+    <h2 class=" banner__group-heading--big">
+        {{section.settings.heading_big}} <span class="banner__group-heading--gold">warranty</span>. 
+    </h2>
+    {% for block in section.blocks %}
+        <div class="banner">
+            <div class="banner__img-container">
+                <img src="{{ block.settings.image | img_url: '838:554' }}" alt="" class="banner__img">
+            </div>
+            <div class="banner__details">
+                <h4 class="heading--quaternary mb--md">
+                    {{ block.settings.title }}
+                </h4>
+                <p class="p--primary">
+                    {{ block.settings.text }}
+                </p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{%schema%}
+    {
+        "name":"Banners",
+        "settings":[
+            {
+                "type":"text",
+                "id":"heading_small",
+                "default":"Your section's small heading",
+                "label":"section.heading_small.label"
+            },
+            {
+                "type":"text",
+                "id":"heading_big",
+                "default":"Your section's big heading",
+                "label":"section.heading_big.label"
+            }
+        ],
+        "blocks":[
+            {
+                "type":"banner",
+                "name":"banner", 
+                "settings":[
+                    {
+                        "type":"text",
+                        "id":"title",
+                        "default":"Your banner's title",
+                        "label":"banner.heading.label"
+                    },
+                    {
+                        "type":"text",
+                        "id":"text",
+                        "default":"Your banner's text",
+                        "label":"banner.text.label"
+                    },
+                    {
+                        "type":"image_picker",
+                        "id":"image",
+                        "label":"banner.image.label"
+                    }
+                ]
+            }
+        ]
+    }
+{%endschema%}

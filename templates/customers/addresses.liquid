@@ -1,39 +1,39 @@
 <!-- /templates/customers/addresses.liquid -->
 
-<h2>New Address</h2>
+<h2>{{ 'general.account.addresses.title' | t }}</h2>
 {% form 'customer_address', customer.new_address %}
 
 {{ form.errors | default_errors }}
 
-<label for="first_name">First Name</label>
+<label for="first_name">{{ 'general.account.addresses.f_name' | t }}</label>
 <input type="text" value="" name="address[first_name]" size="30" />
 
-<label for="last_name">Last Name</label>
+<label for="last_name">{{ 'general.account.addresses.l_name' | t }}</label>
 <input type="text" value="" name="address[last_name]" size="30" />
 
-<label for="company">Company</label>
+<label for="company">{{ 'general.account.addresses.company' | t }}</label>
 <input type="text" value="" name="address[company]" />
 
-<label for="address1">Address 1</label>
+<label for="address1">{{ 'general.account.addresses.address1' | t }}</label>
 <input type="text" value="" name="address[address1]" />
 
-<label for="address2">Address 2</label>
+<label for="address2">{{ 'general.account.addresses.address2' | t }}</label>
 <input type="text" value="" name="address[address2]" />
 
-<label for="city">City</label>
+<label for="city">{{ 'general.account.addresses.city' | t }}</label>
 <input type="text" value="" name="address[city]" />
 
 <!-- See docs for @shopify/theme-addresses to support Country and Province -->
-<label for="country">Country</label>
+<label for="country">{{ 'general.account.addresses.country' | t }}</label>
 <select name="address[country]" /></select>
 
-<label for="province">Province</label>
+<label for="province">{{ 'general.account.addresses.province' | t }}</label>
 <select name="address[province]" /></select>
 
-<label for="zip">Zip/Post Code</label>
+<label for="zip">{{ 'general.account.addresses.zip_code' | t }}</label>
 <input type="text" value="" name="address[zip]" />
 
-<label for="phone">Phone Number</label>
+<label for="phone">{{ 'general.account.addresses.phone_number' | t }}</label>
 <input type="tel" value="" name="address[phone]" />
 
 {% endform %}

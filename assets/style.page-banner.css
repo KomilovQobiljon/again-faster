@@ -1,0 +1,49 @@
+.banner__group{
+    width: 100%;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 0;
+}
+.banner__group-heading--small{
+    margin-bottom: 40px;
+}
+.banner__group-heading--big{
+    text-align: center;
+    font-family: 'Open Sans',sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 143%;
+    text-align: center;
+    padding: 0 155px;
+    margin-bottom: 100px;
+}
+
+
+.banner__group > div:nth-child(odd){
+    flex-direction: row;
+}
+.banner__group > div:nth-child(even){
+    flex-direction: row-reverse;
+}
+.banner{
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.banner__img-container{
+    width: 60%;
+}
+.banner__img{
+    width: 100%;
+}
+.banner__details{
+    width: calc(40% - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

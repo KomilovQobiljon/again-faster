@@ -23,6 +23,10 @@
 .form__socials > a:not(:last-child) {
     margin-right: 2rem;
 }
+.form__socials > a{
+    width: 5rem;
+    height: 5rem;
+}
 .footer__email-submit{
     position: absolute;
     top: 0;
@@ -30,9 +34,6 @@
 }
 .email-submit__input{
     display: none;
-}
-.footer__email-icon{
-    
 }
 .footer__email-icon:hover{
     cursor: pointer;
@@ -91,5 +92,5 @@
     color: #7e7e7e;
 }
 .socials__icon{
-    width: 1.2rem;
+    width: 2rem;
 }

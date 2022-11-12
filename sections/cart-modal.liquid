@@ -3,7 +3,7 @@
 </div>
 <div class="side-cart">
     <div class="cart__header">
-        <h3 class="cart__heading">My cart</h3>
+        <h3 class="cart__heading">{{ 'general.cartModal.cart_title' | t }}</h3>
         {% render 'icon-exit', className:'icon-exit' %}
     </div>
     <div class="side-cart__items">
@@ -11,12 +11,12 @@
     </div>
     <div class="side-cart__bottom">
         <div class="side-cart__subtotal mb--sm">
-            <h4 class="heading--quaternary">Subtotal</h4>
+            <h4 class="heading--quaternary">{{ 'general.cartModal.cart_subtotal' | t }}</h4>
             <p class="heading--quaternary side-cart__total-price"></p>
         </div>
-        <p class="p--primary mb--sm">Tax and shipping calculates at checkout.</p>
-        <p class="p--primary mb--md"> <img src="https://cdn.shopify.com/s/files/1/0611/1834/9495/files/icon-affirm.png?v=1664353024" class="side-cart__icon"></img> pay as low as 56/mo</p>
-        <a href="{{shop.url}}/cart/checkout" class="side-cart__cta">continue to checkout</a>
+        <p class="p--primary mb--sm">{{ 'general.cartModal.cart_info' | t }}</p>
+        <p class="p--primary mb--md"> <img src="https://cdn.shopify.com/s/files/1/0611/1834/9495/files/icon-affirm.png?v=1664353024" class="side-cart__icon" alt="logo of a loan giver"/> pay as low as 56/mo</p>
+        <a href="{{shop.url}}/cart/checkout" class="side-cart__cta">{{ 'general.cartModal.cart_cta' | t }}</a>
     </div>
 </div>
 

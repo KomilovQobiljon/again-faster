@@ -11,7 +11,7 @@
     letter-spacing: 0.175em;
     text-transform: uppercase;
     color: #c4c4c4;
-    margin: 1rem 0 4rem 0;
+    margin: 1rem 0 2rem 0;
 }
 
 .plp__collection-url{
@@ -107,6 +107,125 @@
     z-index: 10;
 }
 
+.plp__filter-container{
+    width: 100%;
+}
+.filter-form{
+    width: 100%;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+}
+.filter-form > div:not(:last-child){
+    margin-bottom: 1rem;
+}
+.filter-form > div{
+    display: flex;
+}
+.active-filters{
+    display: flex;
+}
+.active-filters > a{
+    margin-right: 1rem;
+}
+.active-filters > div:not(:last-child){
+    margin-right: 0.6rem;
+}
+.active-filters__clear{
+    padding: 0.5rem 1rem;
+    border: 1px solid #c4c4c4;
+    background-color: #c4c4c4;
+    border-radius: 0.5rem;
+}
+.active-filters__remove-filter{
+    padding: 0.5rem 1rem;
+    border: 1px solid #c4c4c4;
+    border-radius: 0.5rem;
+}
+.active-filters__remove-filter-x{
+    margin-left: 0.6rem;
+    width: 4rem;
+}
+.filter-group{
+    margin-right: 1rem;
+    position: relative;
+}
+.filter-group-summary{
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+}
+.filter-group-display{
+    background-color: #ffffff;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+    width: 30rem;
+    height: 20rem;
+    box-shadow: 0 5px 5px #c4c4c4;
+    position: absolute;
+    z-index: 10;
+}
+.filter-group-display > div{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.filter-group-display__header{
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid #c4c4c4;
+    display: flex;
+    justify-content: space-between;
+}
+.filter-group-display__list{
+    height: 13rem;
+    overflow-y: scroll;
+}
+.filter-group-display__list-item{
+    padding: 0.8rem 1rem;
+    display: flex;
+}
+.filter-group-display__list-item > label{
+    display: flex;
+    align-items: center;
+}
+.filter-group-display__list-item > label input{
+    margin-right: 1rem;
+}
+.filter-group-display__price-range{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    height: calc(100% - 66px);
+}
+.filter-group-display__submit{
+    background-color: #f1f1f1;
+    padding: 1rem 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.filter-group-display__submit input{
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+
+.collection-sort__input{
+    border: 1px solid #c4c4c4;
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+.collection-sort__input:focus-visible{
+    outline: none;
+}
 /* Yotpo related styles */
 
 /* Makes review numbers next to stars invisible */

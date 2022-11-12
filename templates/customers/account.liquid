@@ -3,33 +3,36 @@
 <div class="account-container">
   <div class="account__nav">
     <div class="nav__one">
-      <h3 class="nav__heading mb--bg">my account</h3>
+      <h3 class="nav__heading mb--bg">{{ 'general.account.title' | t }}</h3>
       <ul class="nav__ul">
         <li class="nav__li">
-          <p class="p--primary nav__active">account overview</p>
+          <p class="p--primary nav__active">{{ 'general.account.link.overview' | t }}</p>
         </li>
         <li class="nav__li">
-          <p class="p--primary">order details</p>
+          <p class="p--primary">{{ 'general.account.link.order' | t }}</p>
         </li>
         <li class="nav__li">
-          <p class="p--primary">address book</p>
+          <p class="p--primary">{{ 'general.account.link.address' | t }}</p>
         </li>
       </ul>
     </div>
     <div class="nav__two">
-      <a href="{{routes.account_logout_url}}" class="p--primary nav__logout">Log out
+      <a href="{{routes.account_logout_url}}" 
+        class="p--primary nav__logout"
+      >
+        {{ 'general.account.log_out' | t }}
       </a>
     </div>
   </div>
   <div class="account__content">
     <div id="customer_orders">
-      <h4 class="heading--quaternary mb--md">Order Details</h4>
+      <h4 class="heading--quaternary mb--md">{{ 'general.account.table.title' | t }}</h4>
       <table class="orders-table">
         <tr>
-          <th>Order Number</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Total</th>
+          <th>{{ 'general.account.table.number' | t }}</th>
+          <th>{{ 'general.account.table.date' | t }}</th>
+          <th>{{ 'general.account.table.status' | t }}</th>
+          <th>{{ 'general.account.table.total' | t }}</th>
         </tr>
         {% paginate customer.orders by 10 %}
           {% if customer.orders.size != 0 %}
@@ -46,7 +49,7 @@
               </tr>
             {% endfor %}
           {% else %}
-            <p class="p--secondary">You haven't placed any orders yet.</p>
+            <p class="p--secondary">{{ 'general.account.table.no_orders' | t }}</p>
           {% endif %}
           {{ paginate | default_pagination }}
         {% endpaginate %}

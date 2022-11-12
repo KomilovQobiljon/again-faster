@@ -1,0 +1,13 @@
+.graphql-plp{
+    color: var(--color-primary-1);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2rem;
+    padding: 4rem;
+}
+.product__img{
+    width: 100%
+}
+.img{
+    width: 100%;
+}

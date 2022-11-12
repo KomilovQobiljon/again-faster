@@ -1,12 +1,12 @@
 {% if cart.item_count > 0 %}
-  <h1>cart</h1>
+  <h1>{{ 'general.cart.title' | t }}</h1>
   <form action="/cart" method="post" novalidate>
     <table>
       <thead>
-        <th colspan="2">Prod</th>
-        <th>Price</th>
-        <th>Qty</th>
-        <th>total</th>
+        <th colspan="2">{{ 'general.cart.product' | t }}</th>
+        <th>{{ 'general.cart.price' | t }}</th>
+        <th>{{ 'general.cart.quantity' | t }}</th>
+        <th>{{ 'general.cart.total' | t }}</th>
       </thead>
       <tbody>
         {% for item in cart.items %}
@@ -19,7 +19,7 @@
             <td>
               <a href="{{ item.url }}">{{ item.product.title }}</a>
               {{ item.variant.title }}
-              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
+              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">{{ 'general.cart.rm' | t }}</a>
             </td>
             <td>{{ item.price | money }}</td>
             <td>
@@ -35,12 +35,12 @@
       </tbody>
     </table>
     <div>
-      <p>sub total : {{ cart.total_price | money }}</p>
-      <button type="submit" name="update">Update</button>
-      <button type="submit" name="checkout">Checkout</button>
+      <p>{{ 'general.cart.subtotal' | t }} : {{ cart.total_price | money }}</p>
+      <button type="submit" name="update">{{ 'general.cart.update' | t }}</button>
+      <button type="submit" name="checkout">{{ 'general.cart.checkout' | t }}</button>
     </div>
   </form>
 {% else %}
-  <h2>cart</h2>
-  Cart is empty
+  <h2>{{ 'general.cart.title' | t }}</h2>
+  {{ 'general.cart.empty' | t }}
 {% endif %}

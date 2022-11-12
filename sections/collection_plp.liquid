@@ -7,11 +7,133 @@
         <a href="{{ block.settings.collection.url  }}" class="plp__collection-url">{{ block.settings.collection.title }}</a> {% unless forloop.last %}<span class="plp__collection-url-slash">/</span>{% endunless %}
       {% endfor %}
     </div>
+    <div class="plp__filter-container">
+      <form class="filter-form">
+        <div class="filter-group__container">
+          {%- for filter in collection.filters -%}
+            <details class="filter-group">
+              <summary class="filter-group-summary">
+                <div>
+                  <span>{{ filter.label }}</span>
+                  {%- if filter.active_values.size > 0 -%}
+                    <span>({{ filter.active_values.size }})</span>
+                  {%- endif -%}
+                </div>
+              </summary>
+          
+              <div class="filter-group-display">
+                <div>
+                  <div class="filter-group-display__header">
+                    <span class="filter-group-display__header-selected">{{ filter.active_values.size }} selected</span>
+          
+                    {%- if filter.active_values.size > 0 -%}
+                      <a href="{{ filter.url_to_remove }}" class="filter-group-display__header-reset">Reset</a>
+                    {%- endif -%}
+                  </div>
+          
+                  {%- case filter.type -%}
+                    {%- when 'boolean' or 'list' -%}
+                      <ul class="filter-group-display__list">
+                        {%- for filter_value in filter.values -%}
+                          <li class="filter-group-display__list-item">
+                            <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                            <input type="checkbox"
+                              name="{{ filter_value.param_name }}"
+                              value="{{ filter_value.value }}"
+                              id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                              {% if filter_value.active -%}checked{%- endif %}
+                              {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                            >{{ filter_value.label }}</label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+          
+                      <div class="filter-group-display__submit">
+                        <input type="submit" value="Apply">
+                      </div>
+                    {%- when 'price_range' -%}
+                      <div class="filter-group-display__price-range">
+                        <div class="filter-group-display__price-range-from">
+                          <span>{{ cart.currency.symbol }}</span>
+          
+                          <input name="{{ filter.min_value.param_name }}"
+                            id="Filter-{{ filter.min_value.param_name }}"
+                            {% if filter.min_value.value -%}
+                              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            type="number"
+                            placeholder="0"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+          
+                          <label for="Filter-{{ filter.min_value.param_name }}">From</label>
+                        </div>
+                        <div class="filter-group-display__price-range-to">
+                          <span>{{ cart.currency.symbol }}</span>
+          
+                          <input name="{{ filter.max_value.param_name }}"
+                            id="Filter-{{ filter.max_value.param_name }}"
+                            {% if filter.max_value.value -%}
+                              value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                            {%- endif %}
+                            type="number"
+                            placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            min="0"
+                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                          >
+          
+                          <label for="Filter-{{ filter.max_value.param_name }}">To</label>
+                        </div>
+                      </div>
+          
+                      <div class="filter-group-display__submit">
+                        <input type="submit" value="Apply">
+                      </div>
+                  {%- endcase -%}
+                </div>
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+        <div>
+          <div class="active-filters">
+            <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}" class="active-filters__clear">{{ 'general.plp.clear_all' | t }}</a>
+            {%- for filter in collection.filters -%}
+              {%- if filter.type == "price_range" -%}
+                {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                  <div class="active-filters__remove-filter">
+                    {%- assign min_value = filter.min_value.value | default: 0 -%}
+                    {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                    {{ min_value | money }} - {{ max_value | money }} 
+                    <a class="active-filters__remove-filter-x" href="{{ filter.url_to_remove }}">X</a>
+                  </div>
+                {%- endif -%}
+              {%- else -%}
+                {%- for filter_value in filter.active_values -%}
+                  <div class="active-filters__remove-filter">
+                    {{ filter.label }}: {{ filter_value.label }}
+                    <a href="{{ filter.url_to_remove }}">
+                      <span class="active-filters__remove-filter-x">X</span>
+                    </a>
+                  </div>
+                {%- endfor -%}
+              {%- endif- %}
+            {%- endfor -%}
+          </div>
+        </div>
+        <select name="sort_by" id="SortBy" aria-describedby="a11y-refresh-page-message" class="collection-sort__input">
+          {% for option in collection.sort_options %}
+              <option value="{{ option.value }}"{% if collection.sort_by == option.value %} selected="selected"{% endif %}>{{ option.name }}</option>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
     <div class="plp__grid">
       {% for product in collection.products %}
         <div class="plp-product">
           {% if product.available %}
-            <a href="{{ product.url | within: collection }}" class="product__img-url mb--sm">
+            <a href="{{ product.url | within: product }}" class="product__img-url mb--sm">
               <div class="product__img-container">
                 <div class="product__label-group">
                   {% for tag in product.tags %}
@@ -22,14 +144,7 @@
               </div>
             </a>
 
-            <a href="{{ product.url | within: collection }}" style="pointer-events: none;" class="title mb--sm">{{ product.title }}</a>
-            {%- comment -%} <div class="product__rating mb--sm">
-              {% render 'icon-star' %}
-              {% render 'icon-star' %}
-              {% render 'icon-star' %}
-              {% render 'icon-star' %}
-              {% render 'icon-star' %}
-            </div> {%- endcomment -%}
+            <a href="{{ product.url | within: product }}" style="pointer-events: none;" class="title mb--sm">{{ product.title }}</a>
             <div class="mb--sm">
               <div class="yotpo bottomLine"
                 data-product-id="{{ product.id }}"
@@ -40,14 +155,14 @@
             <p class="title-grey">{{ product.price | money }}</p>
           {% endif %}
           {% unless product.available %}
-            <a href="{{ product.url | within: collection }}" style="pointer-events: none;" class="product__img-url mb--sm">
+            <a href="{{ product.url | within: product }}" style="pointer-events: none;" class="product__img-url mb--sm">
               <div class="product__img-container">
-                <p class="product__soldout-p">Sold Out - Get notified when back in stock</p>
+                <p class="product__soldout-p">{{ 'general.product.sold_out' | t }}</p>
                 <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" class="product__img product__soldout">
               </div>
             </a>
           
-            <a href="{{ product.url | within: collection }}" style="pointer-events: none;" class="title mb--sm">{{ product.title }}</a>
+            <a href="{{ product.url | within: product }}" style="pointer-events: none;" class="title mb--sm">{{ product.title }}</a>
             <div class="mb--sm">
               <div class="yotpo bottomLine"
                 data-product-id="{{ product.id }}"
@@ -55,17 +170,36 @@
               </div>
             </div>
             <p class="title-grey">{{ product.price | money }}</p>
-          {% endunless %}
+          {% endunless %} 
         </div>
-      {% else %}
-        <p>no matches</p>
+      {% else %} 
+        <p>{{ 'general.plp.no_matches' | t }}</p>
       {% endfor %}
     </div>
-    <!-- {% if paginate.pages > 1 %}
-      {{ paginate | default_pagination }}
-    {% endif %} -->
   </div>
 {% endpaginate %} 
+
+<script>
+  document.querySelector('#SortBy').addEventListener('change',(e)=>{
+    const selectValue = e.currentTarget.value;
+    if(location.search){
+      const searchArray = location.search.split('&');
+      if(searchArray.slice(-1)[0].startsWith('sort_by=')){
+        searchArray.pop();
+        searchArray.push(`sort_by=${selectValue}`);
+      }else{
+        searchArray.push(`sort_by=${selectValue}`);
+      }
+      const searchString = searchArray.join('&');
+      location.search = searchString
+    }else{
+      location.search = `sort_by=${selectValue}`;
+    }
+    
+  })
+  const filterGroupContainer = document.querySelector('.filter-group__container');
+  console.log(filterGroupContainer);
+</script>
 {% schema %}
 {
   "name": "Collection",
