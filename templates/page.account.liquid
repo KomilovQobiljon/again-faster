@@ -1,0 +1,81 @@
+<!-- /templates/customers/account.liquid -->
+{{ 'style.account.css' | asset_url | stylesheet_tag }}
+<div class="account-container">
+  <div class="account__nav">
+    <div class="nav__one">
+      <h3 class="nav__heading mb--bg">{{ 'general.account.title' | t }}</h3>
+      <ul class="nav__ul">
+        <li class="nav__li">
+          <p class="p--primary nav__active">{{ 'general.account.link.overview' | t }}</p>
+        </li>
+        <li class="nav__li">
+          <p class="p--primary">{{ 'general.account.link.order' | t }}</p>
+        </li>
+        <li class="nav__li">
+          <p class="p--primary">{{ 'general.account.link.address' | t }}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="nav__two">
+      <a href="{{shop.url}}/pages/login" 
+        class="p--primary nav__logout"
+      >
+        {{ 'general.account.log_out' | t }}
+      </a>
+    </div>
+  </div>
+  <div class="account__content">
+    <div id="customer_orders">
+      <h4 class="heading--quaternary mb--md">{{ 'general.account.table.title' | t }}</h4>
+      <table class="orders-table">
+        <tr>
+          <th>{{ 'general.account.table.number' | t }}</th>
+          <th>{{ 'general.account.table.date' | t }}</th>
+          <th>{{ 'general.account.table.status' | t }}</th>
+          <th>{{ 'general.account.table.total' | t }}</th>
+        </tr>
+        {% comment %} {% paginate customer.orders by 10 %}
+          {% if customer.orders.size != 0 %}
+            {% for order in customer.orders %}
+              <tr>
+                <td>{{order.order_number}}
+                </td>
+                <td>{{order.created_at | date: "%d.%m.%Y"}}
+                </td>
+                <td>{{order.fulfillment_status_label}}
+                </td>
+                <td>{{order.subtotal_price | money}}
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <p class="p--secondary">{{ 'general.account.table.no_orders' | t }}</p>
+          {% endif %}
+          {{ paginate | default_pagination }}
+        {% endpaginate %} {% endcomment %}
+      </table>
+      <div class="addressbook">
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    const navigationUl = document.querySelector('.nav__ul');
+    const navigationLIs = document.querySelectorAll('.nav__li')
+    navigationUl.addEventListener('click', (e) => {
+    navigationLIs.forEach(li => {
+        li.querySelector('.p--primary').classList.remove('nav__active')
+    })
+    if(e.target.classList.contains('p--primary')){
+        e.target.classList.add('nav__active')
+    }else if( e.target.classList.contains('nav__li')){
+        console.log(e.target.closest('.p--primary'))
+    }
+    })
+
+    const logoutBtn = document.querySelector('.nav__logout');
+    logoutBtn.addEventListener('click',(e)=>{
+        sessionStorage.removeItem('customerInfo');
+    })
+</script>

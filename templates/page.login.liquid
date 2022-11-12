@@ -1,0 +1,160 @@
+<!-- /templates/customers/login.liquid -->
+<!-- this page has been changed to use storefront APIs instead of liquid customer_login form hence they are commented out Please do delete them --->
+{{ 'style.create-customer.css' | asset_url | stylesheet_tag }}
+<div class="create-customer__container">
+    <div class="create-customer__container--inner create-customer">
+        <h3 class="heading--tertiary create-customer__heading">{{ 'general.account.login.title' | t }}</h3>
+        {% comment %}  form 'customer_login' 
+            {{ form.errors | default_errors }}{% endcomment %}
+        <form class="form__login">
+            <label class="p--secondary" for="email">{{ 'general.account.login.email' | t }}</label>
+            <div class="form__input-container" >
+                <input class="form__input from__input--email" type="email" value="" name="customer[email]" placeholder="andy@avexdesigns.com" required />
+            </div>
+            <label class="p--secondary" for="password">{{ 'general.account.login.password' | t }}</label>
+            <div class="form__input-container" >
+                <input class="form__input from__input--password" type="password" value="" name="customer[password]" placeholder="• • • • • • • •" required />
+                <p class="p--primary redirect__forgot-password">{{ 'general.account.login.forgot_password' | t }}</p>
+            </div>
+
+            <input class="form__input-submit" type="submit" value="Log in" />
+        </form>
+        {% comment %} {% endform %} {% endcomment %}
+        <div class="redirect">
+            <p class="p--secondary mb--md mt--md">{{ 'general.account.login.do_not_have_account' | t }}</p>
+            <a class="btn--secondary redirect--btn" href="{{shop.url}}/pages/register">{{ 'general.account.login.create_account' | t }}</a>
+        </div>
+    </div>
+    <div class="create-customer__container--inner disabled reset-password">
+        <h3 class="heading--tertiary create-customer__heading">{{ 'general.account.forgot_password.title' | t }}</h3>
+        <p class="p--secondary create-customer__p">{{ 'general.account.forgot_password.text' | t }}</p>
+        {% comment %}  form 'recover_customer_password'  
+            {{ form.errors | default_errors }}{% endcomment %}
+
+            <label for="customer_email" class="p--secondary">{{ 'general.account.forgot_password.email' | t }}</label>
+            <input class="form__input" type="email" name="email" placeholder="andy@avexdesigns.com" required/>
+
+            <input id="user_email" class="form__input-submit" type="submit" value="Submit" />
+        {% comment %} {% endform %} {% endcomment %}
+    </div>
+</div>
+
+<script>
+    const createCustomer = document.querySelector('.create-customer');
+    const resetPassword = document.querySelector('.reset-password');
+    const forgotPassword = document.querySelector('.redirect__forgot-password');
+    forgotPassword.addEventListener('click',(e)=>{
+        createCustomer.classList.add('disabled');
+        resetPassword.classList.remove('disabled');
+    })
+    /*
+    mutation customerCreate($input: CustomerCreateInput!) {
+    customerCreate(input: $input) {
+        customerUserErrors {
+        code
+        field
+        message
+        }
+        customer {
+        id
+        }
+    }
+    }
+    */
+    class Login{
+        #apiAccessToken;
+        #graphqlUrl;
+        constructor(apiAccessToken, graphqlUrl){
+            this.#apiAccessToken = apiAccessToken;
+            this.#graphqlUrl = graphqlUrl;
+        }
+        async fetchAPI(body) {
+            const response = await fetch(this.#graphqlUrl, body);
+            return await response.json();
+        }
+        graphqlBody(query) {
+            return {
+                'async': true,
+                'crossDomain': true,
+                'method': 'POST',
+                'credentials': 'include',
+                'headers':{
+                    'X-Shopify-Storefront-Access-Token': this.#apiAccessToken,
+                    'Content-Type': 'application/graphql',
+                },
+                'body': query
+            }
+        }
+        createCustomerAccessTokenQuery(email, password){
+            return(
+                `
+                mutation customerAccessTokenCreate {
+                    customerAccessTokenCreate(input: {email: "${email}", password: "${password}"}) {
+                        customerAccessToken {
+                            accessToken
+                        }
+                        customerUserErrors {
+                            message
+                        }
+                    }
+                }
+                `
+            )
+        }
+        loginQuery(accessToken){
+            return(
+                `
+                query {
+                    customer(customerAccessToken: "${accessToken}") {
+                        id
+                        firstName
+                        lastName
+                        acceptsMarketing
+                        email
+                        phone
+                    }
+                }
+                `
+            )
+        }
+        async createCustomerAccessToken(email,password){
+            const response = await this.fetchAPI(this.graphqlBody(this.createCustomerAccessTokenQuery(email,password)))
+            console.log(response)
+            return response;
+        }
+        async login(email, password){
+            try{
+                const response = await this.createCustomerAccessToken(email,password);
+                const accessToken = response.data.customerAccessTokenCreate.customerAccessToken.accessToken;
+                const customer = await this.fetchAPI(this.graphqlBody(this.loginQuery(accessToken)))
+                if(customer.data.customer){
+                    console.log(customer.data.customer);
+                    sessionStorage.setItem('customerInfo',JSON.stringify(customer.data.customer));
+                    location.assign('{{shop.url}}/pages/account');
+                }
+            }catch(err){
+                console.log(err)
+            }
+        }
+    }
+    const API_ACCESS_TOKEN = 'd19c36271d7f425737e0618defdfa9ec';
+    const GRAPHQL_URL = 'https://again-faster-kobiljon.myshopify.com/api/2022-07/graphql.json';
+
+    const loginObj = new Login(API_ACCESS_TOKEN, GRAPHQL_URL);
+    const formLogin = document.querySelector('.form__login');
+    const email = document.querySelector('.from__input--email');
+    const password = document.querySelector('.from__input--password');
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        if(sessionStorage.getItem('customerInfo')){
+            location.assign('{{shop.url}}/pages/account');
+        }else{
+            formLogin.addEventListener('submit',(e)=>{
+                e.preventDefault();
+                loginObj.login(email.value, password.value);
+            })
+        }
+    });
+</script>
+
+ 

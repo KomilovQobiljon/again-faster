@@ -1,0 +1,134 @@
+<!-- /templates/customers/register.liquid -->
+{{ 'style.create-customer.css' | asset_url | stylesheet_tag }}
+<div class="create-customer__container">
+    <div class="create-customer__container--inner">
+        <h3 class="heading--tertiary create-customer__heading">{{ 'general.account.register.title' | t }}</h3>
+        {% comment %} form 'create_customer' 
+            {{ form.errors | default_errors }} {% endcomment %}
+        <form class = "form__signup">
+            <div class="create-customer__name">
+                <div class="name__first-name">
+                    <label class="p--secondary " for="first_name">{{ 'general.account.register.f_name' | t }}</label>
+                    <div class="form__input-container">
+                        <input class="form__input form__input--fname" type="text" value="" name="customer[first_name]" placeholder="Andy" required />
+                    </div>
+                </div>
+                <div class="name__last-name">
+                    <label class="p--secondary " for="last_name">{{ 'general.account.register.l_name' | t }}</label>
+                    <div class="form__input-container">
+                        <input class="form__input form__input--lname" type="text" value="" name="customer[last_name]" placeholder="Smith" required/>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <label class=" p--secondary" for="email">{{ 'general.account.register.email_add' | t }}</label>
+            <div class="form__input-container">
+                <input class="form__input form__input--email" type="email" value="" name="customer[email]" placeholder="andy@avexdesigns.com" required />
+            </div>
+
+            <label class=" p--secondary" for="password">{{ 'general.account.register.password' | t }}</label>
+            <div class="form__input-container">
+                <input class="form__input form__input--password" type="password" value="" name="customer[password]" placeholder="• • • • • • • •" required />
+            </div>
+
+            <input class="form__input-submit" type="submit" value="Create an account" />
+        </form>
+        {% comment %} {% endform %} {% endcomment %}
+        <div class="redirect">
+            <p class="p--secondary mb--md mt--md">{{ 'general.account.register.have_account' | t }}</p>
+            <a class="btn--secondary redirect--btn" href="{{shop.url}}/pages/login">{{ 'general.account.register.log_in' | t }}</a>
+        </div>
+    </div>
+</div>
+<script>
+    class SingUp{
+        #apiAccessToken;
+        #graphqlUrl;
+        constructor(apiAccessToken, graphqlUrl){
+            this.#apiAccessToken = apiAccessToken;
+            this.#graphqlUrl = graphqlUrl;
+        }
+        async fetchAPI(body) {
+            const response = await fetch(this.#graphqlUrl, body);
+            return await response.json();
+        }
+        graphqlBody(query,variables) {
+            return {
+                'async': true,
+                'crossDomain': true,
+                'method': 'POST',
+                'credentials': 'include',
+                'headers':{
+                    'X-Shopify-Storefront-Access-Token': this.#apiAccessToken,
+                    'Content-Type': 'application/graphql',
+                },
+                'body': query
+            }
+        }
+        createCustomerQuery(){
+            return(
+                `
+                mutation {
+                    customerCreate(input: {
+                        acceptsMarketing: true,
+                        email: "komilov19inha@gmail.com",
+                        firstName: "Kobiljon",
+                        lastName: "Komilov",
+                        password: "shopfiy"
+                    } ) {
+                      customer {
+                        firstName
+                        lastName
+                        email
+                        phone
+                        acceptsMarketing
+                      }
+                      customerUserErrors {
+                        field
+                        message
+                        code
+                      }
+                    }
+                  }
+                `
+            )
+        }
+        
+        async signUp(variables){
+            try{
+                const customer = await this.fetchAPI(this.graphqlBody(this.createCustomerQuery()));
+                console.log(customer); 
+                if(customer.data.customerCreate.customer){
+                    location.assign('{{shop.url}}/pages/login');
+                }
+            }catch(err){
+                console.log(err);
+            }
+        }
+    }
+    
+    const API_ACCESS_TOKEN = 'd19c36271d7f425737e0618defdfa9ec';
+    const GRAPHQL_URL = 'https://again-faster-kobiljon.myshopify.com/api/2022-07/graphql.json';
+
+    const singupObj = new SingUp(API_ACCESS_TOKEN, GRAPHQL_URL);
+    const formSingUp = document.querySelector('.form__signup');
+    const fname = document.querySelector('.form__input--fname');
+    const lname = document.querySelector('.form__input--lname');
+    const email = document.querySelector('.form__input--email');
+    const password = document.querySelector('.form__input--password');
+    formSingUp.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        const variables = {
+            "input": {
+                "firstName": fname.value,
+                "lastName": lname.value,
+                "email": email.value,
+                "phone": "121212",
+                "password": password.value,
+                "acceptsMarketing": true
+            }
+        }
+        singupObj.signUp(variables);
+    })
+</script>
