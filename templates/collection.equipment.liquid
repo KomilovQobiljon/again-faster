@@ -4,30 +4,34 @@
     <div class="equipments-collection__container">
         <div class="equipments-collection__header">
             <div class="header__content">
-                <h4 class="title header__content-eyebrow">{{collection.metafields.accentuate.eyebrow}}</h4>
-                <h2 class="heading--secondary">{{collection.metafields.accentuate.title}}</h2>
-                <a href="{{collection.metafields.accentuate.cta_url}}" class="cta-btn header__content-cta">
-                    {{collection.metafields.accentuate.cta_label}}
+                <h4 class="title header__content-eyebrow">{{ collection.metafields.accentuate.eyebrow }}</h4>
+                <h2 class="heading--secondary">{{ collection.metafields.accentuate.title}}</h2>
+                <a href="{{ collection.metafields.accentuate.cta_url }}" class="cta-btn header__content-cta">
+                    {{ collection.metafields.accentuate.cta_label }}
                     {{'right-arrow-black.svg' | asset_url | img_tag: 'right arrow button', 'cta-btn__icon'}}
                 </a>
             </div>
             <div class="header__image-group">
                 {% for item in collection.metafields.accentuate.image_1 %}
-                    <img src="{{ collection.metafields.accentuate.image_1[0].src }}" alt="img-big" class="header__image--big">
+                    <img src="{{ collection.metafields.accentuate.image_1[0].src }}" alt="img-big" class="header__image--big" loading="lazy" width='' height=''>
                 {% endfor %}
                 {% for item in collection.metafields.accentuate.image_2 %}
-                    <img src="{{ item.src }}" alt="img-big" class="header__image--small">
+                    <img src="{{ item.src }}" alt="img-big" class="header__image--small" loading="lazy" width='' height=''>
                 {% endfor %}
             </div>
         </div>
         <div class="equipments-collection__grid">
-           {% assign selected_collections = collection.metafields.accentuate.collections | split:'|' %}
+           {% assign selected_collections = collection.metafields.accentuate.collections | split: '|' %}
            {% for collection in selected_collections %}
-                <div class="grid__collection">
-                    <img src="{{ collections[collection].image | img_url: 'medium' }}" alt="" class="grid__collection-img">
-                    <h4 class="title">{{ collections[collection].title | link_to: collections[collection].url }}</h4>
-                </div>
-           {% endfor %}
+              <div class="grid__collection">
+                <a href="{{ collections[collection].url }}" class="grid__link">
+                  <div class="grid__collection-container">
+                    <img src="{{ collections[collection].image | img_url: 'medium' }}" alt="" class="grid__collection-img" loading="lazy" width='' height='' />
+                  </div>
+                  <h4 class="title">{{ collections[collection].title | link_to: collections[collection].url }}</h4>
+                </a>
+              </div>
+           {% endfor %} 
         </div>
     </div> 
 {% endif %}

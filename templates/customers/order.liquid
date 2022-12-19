@@ -1,7 +1,7 @@
 <!-- /templates/customers/order.liquid -->
 
-<h2>Billing Address</h2>
-<p><span>Payment Status:</span> <span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span></p>
+<h2>{{ 'general.account.order.billing_add' | t }}</h2>
+<p><span>{{ 'general.account.order.payment_status' | t }}</span> <span class="status_{{ order.financial_status }}">{{ order.financial_status }}</span></p>
 <p>{{ order.billing_address.name }}</p>
 <p>{{ order.billing_address.company }}</p>
 <p>{{ order.billing_address.street }}</p>
@@ -9,8 +9,8 @@
 <p>{{ order.billing_address.country }} {{ order.billing_address.zip }}</p>
 <p>{{ order.billing_address.phone }}</p>
 
-<h2>Shipping Address</h2>
-<p><span>Fulfillment Status:</span><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
+<h2>{{ 'general.account.order.shipping_add' | t }}</h2>
+<p><span>{{ 'general.account.order.fulfillment_status' | t }}</span><span class="status_{{ order.fulfillment_status }}">{{ order.fulfillment_status }}</span></p>
 <p>{{ order.shipping_address.name }}</p>
 <p>{{ order.shipping_address.company }}</p>
 <p>{{ order.shipping_address.street }}</p>
@@ -18,7 +18,7 @@
 <p>{{ order.shipping_address.country }} {{ order.shipping_address.zip }}</p>
 <p>{{ order.shipping_address.phone }}</p>
 
-<h2>Order Items</h2>
+<h2>{{ 'general.account.order.items' | t }}</h2>
 <table>
   {% for line_item in order.line_items %}
   <tr>

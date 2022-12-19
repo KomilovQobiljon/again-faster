@@ -5,6 +5,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 50% 50%;
+    overflow: hidden;
 }
 .footer__img{
     position: absolute;
@@ -23,6 +24,10 @@
 .form__socials > a:not(:last-child) {
     margin-right: 2rem;
 }
+.form__socials > a{
+    width: 5rem;
+    height: 5rem;
+}
 .footer__email-submit{
     position: absolute;
     top: 0;
@@ -30,9 +35,6 @@
 }
 .email-submit__input{
     display: none;
-}
-.footer__email-icon{
-    
 }
 .footer__email-icon:hover{
     cursor: pointer;
@@ -79,6 +81,9 @@
     margin-bottom: 3rem;
     color: #353535;
 }
+.link-group__heading-icon{
+    display: none;
+}
 .link-group__ul > li:not(:last-child){
     margin-bottom: 1rem;
 }
@@ -91,5 +96,67 @@
     color: #7e7e7e;
 }
 .socials__icon{
-    width: 1.2rem;
+    width: 2rem;
+}
+
+@media screen and (max-width:1100px) {
+    .footer__form-container{
+        grid-column: 1/3;
+        margin-bottom: 6rem;
+    }
+    .footer__link-container{
+        grid-column: 1/3;
+        margin-bottom: 3rem;
+    }
+    .footer__link-container > div:last-child{
+        justify-self: flex-end;
+    }
+    .footer__img{
+        position: absolute;
+        top:100%;
+        left: 50%;
+        transform: translate(-50%,-80%);
+        z-index: 5;
+    }
+    .footer__email{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .footer{
+        padding: 8rem 10rem;
+    }
+}
+@media screen and (max-width:600px) {
+    .footer{
+        padding: 4rem 1.6rem 8rem 1.6rem;
+    }
+    .link-group{
+        grid-column: 1/3;
+    }
+    .link-group__ul{
+        margin-bottom: 2rem;
+    }
+    .link-group__ul *{
+        display: none;
+    }
+    .link-group__ul-open * {
+        display: block;
+    }
+    .link-group__heading{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+    }
+    .footer__link-container > div:last-child{
+        justify-self: flex-start;
+        width: 100%;
+    }
+    .link-group__heading:hover{
+        cursor: pointer;
+    }
+    .link-group__heading-icon{
+        display: inline-block;
+    }
 }

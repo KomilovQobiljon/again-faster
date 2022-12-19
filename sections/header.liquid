@@ -1,26 +1,49 @@
 {{ 'style.header.css' | asset_url | stylesheet_tag }}
-{% if template=='index' %}
+{% if template == 'index' %}
   <header class="header">
-      <nav class="navigation"> 
-          <img class="navigation__logo" src="{{section.settings.logo.src | img_url: '240x'}}" alt="{{section.settings.logo.alt}}">
+      <nav class="navigation">
+          <div class="navigation__logo-container">
+            <img class="navigation__logo" src="{{ section.settings.logo.src | image_url: width: 240 }}" alt="{{ section.settings.logo.alt }}" loading="lazy" width="" height="">
+          </div>
           <ul class="navigation__list">
-          {% for link in linklists['again-faster-home-menu'].links %}
-            <li class="navigation__item">
-              <a class="navigation__link" href="{{ link.url }}">{{link.title}}</a>
-            </li>
-          {% endfor %}
+            {% for link in linklists['again-faster-home-menu'].links %}
+              <li class="navigation__item">
+                <a class="navigation__link" href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
           </ul>
+          <div class="navigation__menu">
+            <div class="navigation__menu-icon">
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+            </div>
+            <div class="navigation__menu-items">
+              <div class="navigation__menu-icon-close change">
+                <div class="bar1 bg-black"></div>
+                <div class="bar2 bg-black"></div>
+                <div class="bar3 bg-black"></div>
+              </div>
+              <ul>
+                {% for link in linklists['again-faster-home-menu'].links %}
+                  <li class="navigation__menu-item">
+                    <a class="navigation__menu-link heading--quaternary" href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
           <div class="navigation__user">
-            <div class="navigation__icon">
-              <div>
+            <div class="navigation__icons">
+              <div class="navigation__icons-search">
                 {% render 'icon-search' %}
               </div>
-              <div>
+              <div class="navigation__icons-avatar">
                 <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">
                   {% render 'icon-avatar' %}
                 </a>
               </div>
-              <div>
+              <div class="navigation__icons-bag">
                 {% render 'icon-bag', className: 'side-cart-icon' %}
               </div>
             </div>
@@ -28,28 +51,49 @@
       </nav>
   </header> 
 {% endif %}
-{% unless template=='index' %}
+{% unless template == 'index' %}
   <header class="header--second">
     <nav class="navigation--second"> 
-      <img class="navigation__logo" src="{{section.settings.logo_black.src | img_url: '240x'}}" alt="{{section.settings.logo.alt}}">
+      <img class="navigation__logo" src="{{ section.settings.logo_black.src | image_url: width: 240 }}" alt="{{ section.settings.logo.alt }}" loading="lazy" width="" height="">
       <ul class="navigation__list navigation--black">
       {% for link in linklists['again-faster-home-menu'].links %}
         <li class="navigation__item">
-          <a class="navigation__link" href="{{ link.url }}">{{link.title}}</a>
+          <a class="navigation__link" href="{{ link.url }}">{{ link.title }}</a>
         </li>
       {% endfor %}
       </ul>
+      <div class="navigation__menu">
+        <div class="navigation__menu-icon">
+          <div class="bar1 bg-black"></div>
+          <div class="bar2 bg-black"></div>
+          <div class="bar3 bg-black"></div>
+        </div>
+        <div class="navigation__menu-items">
+          <div class="navigation__menu-icon-close change">
+            <div class="bar1 bg-black"></div>
+            <div class="bar2 bg-black"></div>
+            <div class="bar3 bg-black"></div>
+          </div>
+          <ul>
+            {% for link in linklists['again-faster-home-menu'].links %}
+              <li class="navigation__menu-item">
+                <a class="navigation__menu-link heading--quaternary" href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
       <div class="navigation__user">
-        <div class="navigation__icon">
-            <div>
+        <div class="navigation__icons">
+            <div class="navigation__icons-search">
               {% render 'icon-search-black' %}
             </div>
-            <div>
+            <div class="navigation__icons-avatar">
               <a href="{% if customer %}{{ routes.account_url }}{% endif %}{{ routes.account_login_url }}">
                 {% render 'icon-avatar-black' %}
               </a>
             </div>
-            <div>
+            <div class="navigation__icons-bag">
               {% render 'icon-bag-black', className: 'side-cart-icon' %}
             </div>
         </div>
@@ -60,36 +104,68 @@
 
 <script>
   let headerUrl = window.location.href.split('/')[3].startsWith('?')
-  let navigationIcons = document.querySelector('.navigation__icon').children
-  Array.from(navigationIcons).forEach(item=>{
-    Array.from(item.children).forEach(item=>{
-      
+  let navigationIcons = document.querySelector('.navigation__icon')?.children
+  if(navigationIcons){
+    Array.from(navigationIcons).forEach(item=>{
+      Array.from(item.children).forEach(item=>{
+        
+      })
+      if(headerUrl){
+        item.classList.add('icon--black')
+      }else{
+        item.classList.remove('icon--black')
+      }
     })
-    if(headerUrl){
-      item.classList.add('icon--black')
+  }
+  
+  const menuIcon = document.querySelector('.navigation__menu-icon');
+  const menuCloseIcon = document.querySelector('.navigation__menu-icon-close');
+
+  menuCloseIcon?.addEventListener('click',(e)=>{
+    let elements;
+    if(e.target.parentElement.classList.contains('navigation__menu-items')){
+      elements = e.target.parentElement;
     }else{
-      item.classList.remove('icon--black')
+      elements = e.target.parentElement.parentElement;
+    }
+
+    if(elements){
+      menuIcon.classList.remove('change');
+      elements.classList.remove('menu-open');
+    }
+  })
+  menuIcon?.addEventListener('click',(e)=>{
+    if(e.target.classList.contains('navigation__menu-icon')){
+      const parentElement = e.target.parentElement;
+      const elements = parentElement?.querySelector('.navigation__menu-items');
+      menuIcon.classList.add('change');
+      elements.classList.add('menu-open'); 
+    }else{
+      const parentElement = e.target.parentElement.parentElement;
+      const elements = parentElement?.querySelector('.navigation__menu-items');
+      menuIcon.classList.add('change');
+      elements.classList.add('menu-open');
     }
   })
 </script>
   
 {% schema %}
-  {
-    "name": "Header",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo"
-      },
-      {
-        "type":"image_picker",
-        "id":"logo_black",
-        "label":"Logo Black"
-      }
-    ],
-    "blocks": [
-  
-    ]
-  }
-  {% endschema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_black",
+      "label": "Logo Black"
+    }
+  ],
+  "blocks": [
+
+  ]
+}
+{% endschema %}

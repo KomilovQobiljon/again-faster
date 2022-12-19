@@ -37,7 +37,7 @@
         {% comment %} {% endform %} {% endcomment %}
         <div class="redirect">
             <p class="p--secondary mb--md mt--md">{{ 'general.account.register.have_account' | t }}</p>
-            <a class="btn--secondary redirect--btn" href="{{routes.account_login_url}}">{{ 'general.account.register.log_in' | t }}</a>
+            <a class="btn--secondary redirect--btn" href="{{shop.url}}/pages/login">{{ 'general.account.register.log_in' | t }}</a>
         </div>
     </div>
 </div>
@@ -96,10 +96,15 @@
         }
         
         async signUp(variables){
-            const customer = await this.fetchAPI(this.graphqlBody(this.createCustomerQuery()))
-            //console.log(this.createCustomerQuery());
-            console.log(customer)
-            
+            try{
+                const customer = await this.fetchAPI(this.graphqlBody(this.createCustomerQuery()));
+                console.log(customer); 
+                if(customer.data.customerCreate.customer){
+                    location.assign('{{shop.url}}/pages/login');
+                }
+            }catch(err){
+                console.log(err);
+            }
         }
     }
     

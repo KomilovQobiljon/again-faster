@@ -1,0 +1,33 @@
+{{ 'style.page-cta.css' | asset_url | stylesheet_tag }}
+<div class="cta__container">
+    <h3 class="heading--tertiary mb--md">{{ section.settings.cta_title }}</h3>
+    <p class="p--primary mb--bg">{{ section.settings.cta_text }}</p>
+    <a href="{{ section.settings.cta_url }}" class="cta-btn">
+        Learn more
+        {{ 'right-arrow-black.svg' | asset_url | img_tag }}
+    </a>
+</div>
+{% schema %}
+    {
+        "name":"Page CTA",
+        "settings": [
+            {
+                "type":"text",
+                "id":"cta_title",
+                "default":"CTA Title",
+                "label":"Page CTA Title"
+            },
+            {
+                "type":"text",
+                "id":"cta_text",
+                "default":"Lorem ipsum dolor amet",
+                "label":"Page CTA Text"
+            },
+            {
+                "type":"url",
+                "id":"cta_url",
+                "label":"Page CTA url"
+            }
+        ]
+    }
+{% endschema %}

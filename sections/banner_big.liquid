@@ -1,57 +1,59 @@
 {{ 'style.banner-big.css' | asset_url | stylesheet_tag }}
 
 <div class="banner__big">
+    <div class="banner__big-bg"></div>
     <div class="banner__big-content">
         <h2 class="banner__big-title">
-            {{section.settings.banner_title}}
+            {{ section.settings.banner_title }}
         </h2>
         <p class="p--primary">
-            {{section.settings.banner_text}}
+            {{ section.settings.banner_text }}
         </p>
-        <a href="{{section.settings.banner_cta_url}}" class="homepage-hero__btn">
-            {{section.settings.banner_cta_label}}
-            {{'right-arrow.svg' | asset_url | img_tag: 'right arrow button', 'btn__icon'}}
+        <a href="{{ section.settings.banner_cta_url }}" class="banner__btn">
+            {{ section.settings.banner_cta_label }}
+            {{'right-arrow.svg' | asset_url | img_tag: 'right arrow button', 'banner__btn-icon'}}
+            {{ 'icon-right-arrow-black.svg' | asset_url | img_tag: 'right arrow button', 'banner__btn-icon--black' }}
         </a>
     </div>
 </div>
 <style>
-    .banner__big{
-        background-image: url('{{section.settings.image_background.src | img_url:"1000x"}}');
+    .banner__big-bg{ 
+        background-image: url('{{ section.settings.image_background.src | img_url: "1000x" }}');
     }
 </style>
 
 {% schema %}
 {
-    "name":"Banner Big",
-    "settings":[
-        {
-            "type":"image_picker",
-            "id":"image_background",
-            "label":"Banner Image Background"
-        },
-        {
-            "type":"text",
-            "id":"banner_title",
-            "label":"Banner Title",
-            "default":"training in comfort"
-        },
-        {
-            "type":"text",
-            "id":"banner_text",
-            "label":"Banner Text",
-            "default":"Incredibly soft Airlume combed and ringspun cotton + poly fabric provides excellent stretch and recovery during even the most intense workouts."
-        },
-        {
-            "type":"text",
-            "id":"banner_cta_label",
-            "label":"Banner CTA label",
-            "default":"shop now"
-        },
-        {
-           "type":"url",
-           "id":"banner_cta_url",
-           "label":"Banner CTA Url" 
-        }
-    ]
+  "name": "Banner Big",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_background",
+      "label": "Banner Image Background"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "training in comfort"
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner Text",
+      "default": "Incredibly soft Airlume combed and ringspun cotton + poly fabric provides excellent stretch and recovery during even the most intense workouts."
+    },
+    {
+      "type": "text",
+      "id": "banner_cta_label",
+      "label": "Banner CTA label",
+      "default": "shop now"
+    },
+    {
+      "type": "url",
+      "id": "banner_cta_url",
+      "label": "Banner CTA Url"
+    }
+  ]
 }
 {% endschema %}

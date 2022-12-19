@@ -2,7 +2,6 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
 <div class="pdp">
-    <script>console.log({{product | json }})</script>
     <div class="pdp__details">
         <div class="swiper details__img-carousel">
             <div class="swiper-wrapper details__img-wrapper">
@@ -26,7 +25,7 @@
                     >
                     </div>
                     <div class="info__monthly-payment mb--md">
-                        <img src="{{ 'paymentvendor.png' | asset_img_url: '40x16' }}" alt="" class="monthly-payment__img">
+                        <img src="{{ 'paymentvendor.png' | asset_img_url: '40x16' }}" alt="" class="monthly-payment__img" loading="lazy" width='' height=''>
                         <p class="monthly-payment__p p--primary">pay as low as 56/mo Learn More</p>
                     </div>
                     <p class="p--primary info__description">
@@ -36,15 +35,15 @@
                         <div class="purchase__type-container">
                             <input type="radio" checked="checked" id="one-time-purchase" name="purchaseType" data-price="{{product.price}}">
                             <span class="purchase__type-checkmark"></span>
-                            <p class="purchase__type-text p--primary">One time purchase</p>
+                            <p class="purchase__type-text p--primary">{{ 'general.pdp.one_time' | t }}</p>
                         </div>
                         <div class="purchase__type-container">
                             <input type="radio" name="purchaseType" id="subscribe-and-save" data-price="">
                             <span class="purchase__type-checkmark"></span>
-                            <p class="purchase__type-text p--primary">Subscribe & Save</p>
+                            <p class="purchase__type-text p--primary">{{ 'general.pdp.subscribe' | t }}</p>
                             <select>
                                 {% for sellingPlan in product.selling_plan_groups[0].selling_plans %}
-                                    <option value="{{sellingPlan}}" data-price="{{sellingPlan.price_adjustments[0].value}}" data-selling-plan-id="{{sellingPlan.id}}">{{sellingPlan.name}}</option>
+                                    <option value="{{ sellingPlan }}" data-price="{{ sellingPlan.price_adjustments[0].value }}" data-selling-plan-id="{{ sellingPlan.id }}">{{ sellingPlan.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -53,8 +52,8 @@
                     {% if product.has_only_default_variant %}
                         <p class="heading--tertiary mb--md" id="product__id" 
                             data-selling-plan-id=""  
-                            data-product-id="{{product.selected_or_first_available_variant.id}}" >{{ product.title }} 
-                            <span> does not have any variants</span>
+                            data-product-id="{{ product.selected_or_first_available_variant.id }}" >{{ product.title }} 
+                            <span>{{ 'general.pdp.no_variant' | t }}</span>
                         </p>
                     {% else %}
                         <div class="product-variant__container-over">
@@ -85,24 +84,21 @@
                             </div>
                         </div>
                     {% endif %}
-                    {%for p in pages %}
-                        <p class="p--primary">{{p.title}}</p>
-                    {%endfor%}
-                    <p class="product__free-shipping">Available for Free shipping</p>
+                    <p class="product__free-shipping">{{ 'general.pdp.free_shipping' | t }}</p>
                     <input type="submit" value="Add to cart" id="product__add-to-cart" class="btn--primary">
                 </form>
             </div>
             <div class="info__fbw">
-                <h4 class="heading--quaternary mb--md">Frequently bought with</h4>
+                <h4 class="heading--quaternary mb--md">{{ 'general.pdp.fbw' | t }}</h4>
                 <div class="info__fbw-container">   
                     {% assign handles = product.metafields.accentuate.frequently_bought_with | split: '|' %}
                     {% for fbwProduct in handles %}
                         {% if all_products[fbwProduct].available %}
                             <div class="fbw__product">
-                                <img src="{{ all_products[fbwProduct].featured_image | img_url: 'medium' }}" alt="" class="fbw__product-img">
+                                <img src="{{ all_products[fbwProduct].featured_image | img_url: 'medium' }}" alt="" class="fbw__product-img" loading="lazy" width='' height=''>
                                 <div class="fbw__details">
                                     <p class="p--primary fbw__title">{{ all_products[fbwProduct].title }}</p>
-                                    <p class="fbw__cta" data-productID="{{ all_products[fbwProduct].first_available_variant.id }}">Add to cart</p>
+                                    <p class="fbw__cta" data-productID="{{ all_products[fbwProduct].first_available_variant.id }}">{{ 'general.pdp.add_to_cart' | t }}</p>
                                 </div>
                             </div>
                         {% endif %}
@@ -134,7 +130,7 @@
         {% endfor %}
     </div>
     <div class="pdp__yml">
-        <h3 class="pdp__yml-heading">You might also like</h3>
+        <h3 class="pdp__yml-heading">{{ 'general.pdp.ymal' | t }}</h3>
         {% assign ymlHandles = product.metafields.accentuate.you_might_also_like | split: '|' %}
         {% for ymlProduct in ymlHandles %}
             <div class="product mb--sm">
@@ -159,7 +155,12 @@
         {% endfor %}
     </div>
     <div class="pdp__reviews">
-        <div class="yotpo-widget-instance" data-yotpo-instance-id="250384" data-yotpo-product-id="{{product.id}}" data-yotpo-name="{{ product.title | escape }}" data-yotpo-url="{{ shop.url }}{{ product.url }}" data-yotpo-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" data-yotpo-description="{{ product.description | escape }}"></div>
+        <div class="yotpo-widget-instance" data-yotpo-instance-id="250384" data-yotpo-product-id="{{product.id}}"
+             data-yotpo-name="{{ product.title | escape }}" data-yotpo-url="{{ shop.url }}{{ product.url }}" 
+             data-yotpo-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
+             data-yotpo-description="{{ product.description | escape }}"
+        >
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" ></script>
@@ -204,18 +205,6 @@
             console.log(productIdForCart.dataset.sellingPlanId)
         }
     })
-
-    
-   
-
-    /*const options = {
-        method: 'GET',
-        headers: {accept: 'application/json', 'Content-Type': 'application/json'}
-    };
-    fetch('https://api.yotpo.com/v1/apps/app_key/reviews?utoken=utoken', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err)); */
 
 </script>
 {% schema %}

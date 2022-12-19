@@ -6,17 +6,17 @@
         <div class="swiper-wrapper wrapper-featured">
             {% for block in section.blocks %}
                 <div class="swiper-slide cell-featured">
+                  <a href="{{ block.settings.collection.url }}" class="product__link">
                     <div class="featured-collections__item">
-                        <img src="{{block.settings.collection.image | img_url: 'medium'}}" alt="" class="product__img">
-                        <a href="{{ block.settings.collection.url }}" class="product__link">
-                            <h4 class="product__title title">
-                                {{block.settings.collection.title}}
-                                {% render 'icon-right-arrow-black', class:'product__arrow' %}
-                            </h4>
-                        </a>
+                        <img src="{{block.settings.collection.image | img_url: '328x334'}}" alt="" class="product__img" loading="lazy" width="" height="">
+                          <h4 class="product__title title">
+                              {{ block.settings.collection.title }}
+                              {% render 'icon-right-arrow-black', class: 'product__arrow' %}
+                          </h4>
                     </div>
-                </div>
-            {% endfor%}
+                  </a>
+                </div> 
+            {% endfor %}
         </div>
         <div class="swiper-scrollbar scrollbar-featured"></div>
     </div>

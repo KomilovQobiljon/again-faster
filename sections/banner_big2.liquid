@@ -1,51 +1,50 @@
 {{ 'style.banner-big.css' | asset_url | stylesheet_tag }}
 
 <div class="banner__big">
+    <div class="banner__big-bg"></div>
     <div class="banner__big-content">
         <h2 class="banner__big-title">
-            {{section.settings.banner2_title}}
+            {{ section.settings.banner2_title }}
         </h2>
-        <!-- <p class="p--primary mb--bg">
-            {{section.settings.banner_text}}
-        </p> -->
-        <a href="{{section.settings.banner2_cta_url}}" class="homepage-hero__btn">
-            {{section.settings.banner2_cta_label}}
-            {{'right-arrow.svg' | asset_url | img_tag: 'right arrow button', 'btn__icon'}}
+        <a href="{{ section.settings.banner2_cta_url }}" class="banner__btn">
+            {{ section.settings.banner2_cta_label }}
+            {{ 'right-arrow.svg' | asset_url | img_tag: 'right arrow button', 'banner__btn-icon' }}
+            {{ 'icon-right-arrow-black.svg' | asset_url | img_tag: 'right arrow button', 'banner__btn-icon--black' }}
         </a>
     </div>
 </div>
 <style>
-    .banner__big{
-        background-image: url('{{section.settings.image2_background.src | img_url:"1000x"}}');
+    .banner__big-bg{
+        background-image: url('{{ section.settings.image2_background.src | img_url: "1000x" }}');
     }
 </style>
 
 {% schema %}
 {
-    "name":"Banner Big2",
-    "settings":[
-        {
-            "type":"image_picker",
-            "id":"image2_background",
-            "label":"Banner 2 Image Background"
-        },
-        {
-            "type":"text",
-            "id":"banner2_title",
-            "label":"Banner 2 Title",
-            "default":"new arrivals"
-        },
-        {
-            "type":"text",
-            "id":"banner2_cta_label",
-            "label":"Banner 2 CTA label",
-            "default":"shop now"
-        },
-        {
-           "type":"url",
-           "id":"banner2_cta_url",
-           "label":"Banner 2 CTA Url" 
-        }
-    ]
+  "name": "Banner Big2",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image2_background",
+      "label": "Banner 2 Image Background"
+    },
+    {
+      "type": "text",
+      "id": "banner2_title",
+      "label": "Banner 2 Title",
+      "default": "new arrivals"
+    },
+    {
+      "type": "text",
+      "id": "banner2_cta_label",
+      "label": "Banner 2 CTA label",
+      "default": "shop now"
+    },
+    {
+      "type": "url",
+      "id": "banner2_cta_url",
+      "label": "Banner 2 CTA Url"
+    }
+  ]
 }
 {% endschema %}

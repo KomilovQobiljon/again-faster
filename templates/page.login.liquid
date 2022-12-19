@@ -9,11 +9,11 @@
         <form class="form__login">
             <label class="p--secondary" for="email">{{ 'general.account.login.email' | t }}</label>
             <div class="form__input-container" >
-                <input class="form__input from__input--email" type="email" value="" name="customer[email]" placeholder="andy@avexdesigns.com" required />
+                <input class="form__input form__input--email" type="email" value="" name="customer[email]" placeholder="andy@avexdesigns.com" required />
             </div>
             <label class="p--secondary" for="password">{{ 'general.account.login.password' | t }}</label>
             <div class="form__input-container" >
-                <input class="form__input from__input--password" type="password" value="" name="customer[password]" placeholder="• • • • • • • •" required />
+                <input class="form__input form__input--password" type="password" value="" name="customer[password]" placeholder="• • • • • • • •" required />
                 <p class="p--primary redirect__forgot-password">{{ 'general.account.login.forgot_password' | t }}</p>
             </div>
 
@@ -22,7 +22,7 @@
         {% comment %} {% endform %} {% endcomment %}
         <div class="redirect">
             <p class="p--secondary mb--md mt--md">{{ 'general.account.login.do_not_have_account' | t }}</p>
-            <a class="btn--secondary redirect--btn" href="{{routes.account_register_url}}">{{ 'general.account.login.create_account' | t }}</a>
+            <a class="btn--secondary redirect--btn" href="{{shop.url}}/pages/register">{{ 'general.account.login.create_account' | t }}</a>
         </div>
     </div>
     <div class="create-customer__container--inner disabled reset-password">
@@ -30,11 +30,12 @@
         <p class="p--secondary create-customer__p">{{ 'general.account.forgot_password.text' | t }}</p>
         {% comment %}  form 'recover_customer_password'  
             {{ form.errors | default_errors }}{% endcomment %}
-
+        <form class="form__forgot-password">
             <label for="customer_email" class="p--secondary">{{ 'general.account.forgot_password.email' | t }}</label>
-            <input class="form__input" type="email" name="email" placeholder="andy@avexdesigns.com" required/>
+            <input class="form__input forgot-password__email" type="email" name="email" placeholder="andy@avexdesigns.com" required/>
 
             <input id="user_email" class="form__input-submit" type="submit" value="Submit" />
+        </form>
         {% comment %} {% endform %} {% endcomment %}
     </div>
 </div>
@@ -117,16 +118,44 @@
                 `
             )
         }
+        customerRecoverQuery(email){
+            console.log(typeof email)
+            return(
+                `mutation{
+                    customerRecover(email: "${email}") {
+                        customerUserErrors {
+                            message
+                        }
+                    }
+                }` 
+            )
+        }
         async createCustomerAccessToken(email,password){
             const response = await this.fetchAPI(this.graphqlBody(this.createCustomerAccessTokenQuery(email,password)))
             console.log(response)
             return response;
         }
         async login(email, password){
-            const response = await this.createCustomerAccessToken(email,password);
-            const accessToken = response.data.customerAccessTokenCreate.customerAccessToken.accessToken;
-            const customer = await this.fetchAPI(this.graphqlBody(this.loginQuery(accessToken)))
-            console.log(customer);
+            try{
+                const response = await this.createCustomerAccessToken(email,password);
+                const accessToken = response.data.customerAccessTokenCreate.customerAccessToken.accessToken;
+                const customer = await this.fetchAPI(this.graphqlBody(this.loginQuery(accessToken)))
+                if(customer.data.customer){
+                    console.log(customer.data.customer);
+                    sessionStorage.setItem('customerInfo',JSON.stringify(customer.data.customer));
+                    location.assign('{{shop.url}}/pages/account');
+                }
+            }catch(err){
+                console.log(err)
+            }
+        }
+        async recoverCustomer(email){
+            try{
+                const response = await this.fetchAPI(this.graphqlBody(this.customerRecoverQuery(email)));
+                console.log(response);
+            }catch(err){
+                console.log(err)
+            }
         }
     }
     const API_ACCESS_TOKEN = 'd19c36271d7f425737e0618defdfa9ec';
@@ -134,12 +163,27 @@
 
     const loginObj = new Login(API_ACCESS_TOKEN, GRAPHQL_URL);
     const formLogin = document.querySelector('.form__login');
-    const email = document.querySelector('.from__input--email');
-    const password = document.querySelector('.from__input--password');
-    formLogin.addEventListener('submit',(e)=>{
+    const email = document.querySelector('.form__input--email');
+    const password = document.querySelector('.form__input--password');
+
+    const formForPass = document.querySelector('.form__forgot-password');
+    const forgotPasswordEmail = document.querySelector('.forgot-password__email');
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        if(sessionStorage.getItem('customerInfo')){
+            location.assign('{{shop.url}}/pages/account');
+        }else{
+            formLogin.addEventListener('submit',(e)=>{
+                e.preventDefault();
+                loginObj.login(email.value, password.value);
+            })
+        }
+    });
+
+    formForPass.addEventListener('submit',(e)=>{
         e.preventDefault();
-        loginObj.login(email.value, password.value);
+        loginObj.recoverCustomer(forgotPasswordEmail.value);
     })
-</script>
+</script> 
 
-
+ 

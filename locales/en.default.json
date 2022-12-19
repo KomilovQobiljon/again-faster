@@ -3,6 +3,133 @@
     "404": {
       "title": "Not found",
       "subtext_html": "The page you were looking for does not exist"
+    },
+    "cartModal": {
+      "cart_title": "My cart",
+      "cart_subtotal": "Subtotal",
+      "cart_info": "Tax and shipping calculates at checkout.",
+      "cart_cta": "continue to checkout"
+    },
+    "product": {
+      "sold_out": "Sold Out - Get notified when back in stock"
+    },
+    "footer": {
+      "newsletter": "newsletter",
+      "email_placeholder": "Enter your email"
+    },
+    "pdp": {
+      "one_time": "One time purchase",
+      "subscribe": "Subscribe & Save",
+      "no_variant": "does not have any variants",
+      "free_shipping": "Available for Free shipping",
+      "fbw": "Frequently bought with",
+      "add_to_cart": "Add to cart",
+      "ymal": "You might also like"
+    },
+    "plp": {
+      "clear_all": "Clear all",
+      "no_matches": "no matches"
+    },
+    "article": {
+      "comment": "comments",
+      "name": "name",
+      "email": "email",
+      "message": "message"
+    },
+    "cart": {
+      "title": "My cart",
+      "product": "Prod",
+      "price": "Price",
+      "quantity": "Qty",
+      "total": "total",
+      "rm": "remove",
+      "subtotal": "sub total",
+      "update": "Update",
+      "checkout": "Checkout",
+      "empty": "Cart is empty"
+    },
+    "collection_list": {
+      "sold_out": "sold out",
+      "no_matches": "no matches"
+    },
+    "page_contact": {
+      "name": "name",
+      "email": "email",
+      "phone": "phone",
+      "message": "message"
+    },
+    "search": {
+      "search": "search",
+      "no_results": "no results"
+    },
+    "account": {
+      "title": "my account",
+      "link": {
+        "overview": "account overview",
+        "order": "order details",
+        "address": "address book"
+      },
+      "log_out": "Log out",
+      "table": {
+        "title": "Order Details",
+        "number": "Order Number",
+        "date": "Date",
+        "status": "Status",
+        "total": "Total",
+        "no_orders": "You haven't placed any orders yet."
+      },
+      "activate": {
+        "title": "Password",
+        "confimation": "Password Confirmation",
+        "or": "or"
+      },
+      "addresses": {
+        "title": "New Address",
+        "f_name": "First Name",
+        "l_name": "Last Name",
+        "company": "Company",
+        "address1": "Address 1",
+        "address2": "Address 2",
+        "city": "City",
+        "country": "Country",
+        "province": "Province",
+        "zip_code": "Zip\/Post Code",
+        "phone_number": "Phone Number"
+      },
+      "login": {
+        "title": "Log in",
+        "email": "Email Address",
+        "password": "Password",
+        "forgot_password": "Forgot password?",
+        "do_not_have_account": "Don't have an account yet?",
+        "create_account": "create an account"
+      },
+      "forgot_password": {
+        "title": "Forgot password",
+        "text": "Enter your email below to receive an email to reset your password.",
+        "email": "Email Address"
+      },
+      "order": {
+        "billing_add": "Billing Address",
+        "payment_status": "Payment Status:",
+        "shipping_add": "Shipping Address",
+        "fulfillment_status": "Fulfillment Status:",
+        "items": "Order Items"
+      },
+      "register": {
+        "title": "Create an account",
+        "f_name": "First Name",
+        "l_name": "Last Name",
+        "email_add": "Email Address",
+        "password": "Password",
+        "have_account": "Already have an account",
+        "log_in": "log in"
+      },
+      "reset_password": {
+        "title": "reset password",
+        "password": "Password",
+        "password_confirmation": "Password Confirmation"
+      }
     }
   }
 }

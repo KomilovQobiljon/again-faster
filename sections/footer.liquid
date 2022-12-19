@@ -1,12 +1,12 @@
 {{ 'style.footer.css' | asset_url | stylesheet_tag }}
 <div class="footer">
-    <img src="{{section.settings.image_background.src | img_url: '449x' }}" alt="" class="footer__img">
+    <img src="{{ section.settings.image_background.src | img_url: '449x' }}" alt="" class="footer__img" width="" height="" loading="lazy">
     <div class="footer__form-container">
-        <h4 class="link-group__heading">newsletter</h4>
+        <h4 class="link-group__heading">{{ 'general.footer.newsletter' | t }}</h4>
         {% form 'contact' %}
             {{ form.errors | default_errors }}
             <div class="footer__email">
-                <input type="email" name="contact[email]" id="email" placeholder="Enter your email" class="footer__input" />
+                <input type="email" name="contact[email]" id="email" placeholder="{{ 'general.footer.email_placeholder' | t }}" class="footer__input" />
                 <div class="footer__email-submit ">
                     <input type="submit" value="Create" id="email-submit__input" class="email-submit__input"/>
                     <label for="email-submit__input">{% render 'icon-right-arrow-black', class: 'footer__email-icon' %}</label>
@@ -16,29 +16,37 @@
         {% endform %}
         <div class="form__socials">
             {% for block in section.blocks %}
-                <a href="{{block.settings.social_url}}" class="form__instagram">
-                    <img src='{{ block.settings.social_name_img.src | img_url: 'medium' }}' alt="" class="socials__icon">
+                <a href="{{ block.settings.social_url }}" class="form__instagram">
+                    <img src='{{ block.settings.social_name_img.src | img_url: 'medium' }}' alt="" class="socials__icon" width="" height="" loading="lazy">
                 </a>
             {% endfor %}
         </div>
     </div>
     <div class="footer__link-container">
         <div class="link-group">
-            <h4 class="link-group__heading">again faster</h4>
+            <h4 class="link-group__heading">again faster 
+                <span class="link-group__heading-icon">
+                    {{ 'icon-plus-black.svg' | asset_url | img_tag: 'plus icon button', 'link-group__heading-icon' }}
+                </span>
+            </h4>
             <ul class="link-group__ul">
                 {% for link in linklists.footer.links %}
                     <li class="link-group__li">
-                        <a href="{{link.url}}" class="link">{{link.title}}</a>
+                        <a href="{{ link.url }}" class="link">{{ link.title }}</a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
         <div class="link-group">
-            <h4 class="link-group__heading">get help</h4>
+            <h4 class="link-group__heading">get help
+                <span class="link-group__heading-icon">
+                    {{ 'icon-plus-black.svg' | asset_url | img_tag: 'plus icon button', 'link-group__heading-icon' }}
+                </span>
+            </h4>
             <ul class="link-group__ul">
                 {% for link in linklists['footer-get-help'].links %}
                     <li class="link-group__li">
-                        <a href="{{link.url}}" class="link">{{link.title}}</a>
+                        <a href="{{ link.url }}" class="link">{{ link.title }}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -46,34 +54,44 @@
     </div>
 </div>
 
+<script>
+    const linkContainer = document.querySelector('.footer__link-container');
+    linkContainer.addEventListener('click',(e)=>{
+        if(e.target.classList.contains('link-group__heading')){
+            const parentEl = e.target.parentElement;
+            const linkList = parentEl.querySelector('.link-group__ul');
+            linkList.classList.toggle('link-group__ul-open');
+        }
+    })
+</script>
+
 {% schema %}
 {
-    "name":"Footer",
-    "settings":[
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_background",
+      "label": "Footer Logo"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "social_url",
+      "type": "social",
+      "settings": [
         {
-            "type":"image_picker",
-            "id":"image_background",
-            "label":"Footer Logo"
-        }
-    ],
-    "blocks":[
+          "type": "url",
+          "id": "social_url",
+          "label": "Social Url"
+        },
         {
-            "name":"social_url",
-            "type":"social",
-            "settings":[
-                {
-                    "type":"url",
-                    "id":"social_url",
-                    "label":"Social Url"
-                },
-                {
-                    "type":"image_picker",
-                    "id":"social_name_img",
-                    "label":"Social Name"
-                }
-            ]
-
+          "type": "image_picker",
+          "id": "social_name_img",
+          "label": "Social Name"
         }
-    ]
+      ]
+    }
+  ]
 }
 {% endschema %}

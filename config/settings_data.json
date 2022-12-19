@@ -1,6 +1,172 @@
 {
-  "current": "Default",
+  "current": {
+    "sections": {
+      "announcement": {
+        "type": "announcement",
+        "blocks": {
+          "announcement-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "20% OFF Sitewide until 9\/12",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-0"
+        ],
+        "settings": {
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/logo.png",
+          "logo_black": "shopify:\/\/shop_images\/logo-black.png"
+        }
+      },
+      "homepage_hero": {
+        "type": "homepage_hero",
+        "settings": {
+          "hero_image": "shopify:\/\/shop_images\/homepage-hero.jpg",
+          "hero_title": "Team barbell",
+          "hero_text": "Team Barbell was to design a piece of equipment that matches the performance and quality of other elite level competition bars.",
+          "hero_cta_label": "Explore",
+          "hero_cta_url": ""
+        }
+      },
+      "featured_collections": {
+        "type": "featured_collections",
+        "blocks": {
+          "cb239c2f-d5a3-4539-94fc-54de670e78c4": {
+            "type": "collection",
+            "settings": {
+              "collection": "accessories"
+            }
+          },
+          "bb73e646-e9b1-414a-bbee-5649106b2f0e": {
+            "type": "collection",
+            "settings": {
+              "collection": "barbells"
+            }
+          },
+          "3f395c77-33a2-4c45-b364-47418a56961f": {
+            "type": "collection",
+            "settings": {
+              "collection": "bumper-plates"
+            }
+          },
+          "1163bb76-193c-4aca-8f4a-b5b93a67fbb6": {
+            "type": "collection",
+            "settings": {
+              "collection": "gdc"
+            }
+          },
+          "36d97b13-7f04-4da8-934f-1fbd0f95c939": {
+            "type": "collection",
+            "settings": {
+              "collection": "medicine-balls"
+            }
+          },
+          "cfcd4abc-32f5-4abd-ae15-2677e89f7314": {
+            "type": "collection",
+            "settings": {
+              "collection": "squat-stand-and-racks"
+            }
+          },
+          "20ce8d38-2c57-4a2e-b800-5bead96e8f4b": {
+            "type": "collection",
+            "settings": {
+              "collection": "weights"
+            }
+          }
+        },
+        "block_order": [
+          "cb239c2f-d5a3-4539-94fc-54de670e78c4",
+          "bb73e646-e9b1-414a-bbee-5649106b2f0e",
+          "3f395c77-33a2-4c45-b364-47418a56961f",
+          "1163bb76-193c-4aca-8f4a-b5b93a67fbb6",
+          "36d97b13-7f04-4da8-934f-1fbd0f95c939",
+          "cfcd4abc-32f5-4abd-ae15-2677e89f7314",
+          "20ce8d38-2c57-4a2e-b800-5bead96e8f4b"
+        ],
+        "settings": {
+          "products_to_show": 8
+        }
+      },
+      "banner_img": {
+        "type": "banner_img",
+        "settings": {
+          "image_big": "shopify:\/\/shop_images\/Rectangle27.jpg",
+          "image_small": "shopify:\/\/shop_images\/Rectangle28.jpg",
+          "title_small": "best seller",
+          "title_big": "truly, an all in one barbell",
+          "banner_img_paragraph": "Design that matches the performance and quality of other elite level competition bars",
+          "banner_cta": "shop weights",
+          "banner_cta_url": ""
+        }
+      },
+      "banner_big": {
+        "type": "banner_big",
+        "settings": {
+          "image_background": "shopify:\/\/shop_images\/Rectangle_29.jpg",
+          "banner_title": "training in comfort",
+          "banner_text": "Incredibly soft Airlume combed and ringspun cotton + poly fabric provides excellent stretch and recovery during even the most intense workouts.",
+          "banner_cta_label": "shop now",
+          "banner_cta_url": ""
+        }
+      },
+      "collection_banner": {
+        "type": "collection_banner",
+        "blocks": {
+          "813effad-2f8c-4d21-897c-1af1dff66db8": {
+            "type": "collection",
+            "settings": {
+              "collection": "home-gym"
+            }
+          },
+          "7d83b75e-7298-498f-bc20-a0fd193de552": {
+            "type": "collection",
+            "settings": {
+              "collection": "professional-gym"
+            }
+          }
+        },
+        "block_order": [
+          "813effad-2f8c-4d21-897c-1af1dff66db8",
+          "7d83b75e-7298-498f-bc20-a0fd193de552"
+        ],
+        "settings": {
+          "image_background": "shopify:\/\/shop_images\/bannerthree.jpg"
+        }
+      },
+      "banner_big2": {
+        "type": "banner_big2",
+        "settings": {
+          "image2_background": "shopify:\/\/shop_images\/Rectangle_29.jpg",
+          "banner2_title": "new arrivals",
+          "banner2_cta_label": "shop now",
+          "banner2_cta_url": ""
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "image_background": "shopify:\/\/shop_images\/again-faster-logo.png"
+        }
+      },
+      "cart-modal": {
+        "type": "cart-modal",
+        "settings": {
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  },
   "presets": {
-    "Default": { }
+    "Default": {
+    }
   }
 }

@@ -100,9 +100,6 @@ class Cart {
         const sideCartTotalPrice = document.querySelector(".side-cart__total-price");
         sideCartTotalPrice.textContent = this.formatter.format(cartDetails.total_price / 100);
 
-        // const sideCartItemCart = document.querySelector(".side-cart__item-cart");
-        // sideCartItemCart.textContent = '(' + cartDetails.item_count + ')'
-
     }
 
     async toggleCart() {
@@ -195,18 +192,18 @@ const cart = new Cart();
 const sideCartItems = document.querySelector('.side-cart__items');
 
 
-sideCartIcon.addEventListener('click',()=>{
+sideCartIcon?.addEventListener('click',()=>{
     cart.toggleCart()
 })
-sideCartExit.addEventListener('click', ()=>{
+sideCartExit?.addEventListener('click', ()=>{
     cart.closeModal()
 })
-frequenlyBouthWithContainer.addEventListener('click',(e)=>{
+frequenlyBouthWithContainer?.addEventListener('click',(e)=>{
     if(e.target.classList.contains('fbw__cta')){
         cart.addToCart(e.target.dataset.productid);
     }
 })
-sideCartItems.addEventListener('click',(e)=>{
+sideCartItems?.addEventListener('click',(e)=>{
     if(e.target.classList.contains('item__cancel-container') || e.target.parentElement.classList.contains('item__cancel-container')){
         let cancelBtn;
         if(e.target.classList.contains('item__cancel-container')){
@@ -227,7 +224,7 @@ sideCartItems.addEventListener('click',(e)=>{
         cart.increaseItemAmount({itemAmount:itemAmount,itemID:itemID})
     }
 })
-btnAddToCart.addEventListener('click',(e)=>{
+btnAddToCart?.addEventListener('click',(e)=>{
     e.preventDefault();
     cart.addToCart();
     document.querySelector('#product__id').dataset.sellingPlanId = '';

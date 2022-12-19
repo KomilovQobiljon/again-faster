@@ -17,7 +17,7 @@
       </ul>
     </div>
     <div class="nav__two">
-      <a href="{{routes.account_logout_url}}" 
+      <a href="{{shop.url}}/pages/login" 
         class="p--primary nav__logout"
       >
         {{ 'general.account.log_out' | t }}
@@ -34,7 +34,7 @@
           <th>{{ 'general.account.table.status' | t }}</th>
           <th>{{ 'general.account.table.total' | t }}</th>
         </tr>
-        {% paginate customer.orders by 10 %}
+        {% comment %} {% paginate customer.orders by 10 %}
           {% if customer.orders.size != 0 %}
             {% for order in customer.orders %}
               <tr>
@@ -52,7 +52,7 @@
             <p class="p--secondary">{{ 'general.account.table.no_orders' | t }}</p>
           {% endif %}
           {{ paginate | default_pagination }}
-        {% endpaginate %}
+        {% endpaginate %} {% endcomment %}
       </table>
       <div class="addressbook">
         
@@ -61,28 +61,21 @@
   </div>
 </div>
 <script>
-  const navigationUl = document.querySelector('.nav__ul');
-  const navigationLIs = document.querySelectorAll('.nav__li')
-  navigationUl.addEventListener('click', (e) => {
+    const navigationUl = document.querySelector('.nav__ul');
+    const navigationLIs = document.querySelectorAll('.nav__li')
+    navigationUl.addEventListener('click', (e) => {
     navigationLIs.forEach(li => {
-      li.querySelector('.p--primary').classList.remove('nav__active')
+        li.querySelector('.p--primary').classList.remove('nav__active')
     })
     if(e.target.classList.contains('p--primary')){
-      e.target.classList.add('nav__active')
+        e.target.classList.add('nav__active')
     }else if( e.target.classList.contains('nav__li')){
-     console.log(e.target.closest('.p--primary'))
+        console.log(e.target.closest('.p--primary'))
     }
-  })
-</script>
+    })
 
-{%- comment -%}
-  {% if customer.default_address %}
-  <h2>Address</h2>
-  <p>{{ customer.default_address.address1 }}</p>
-  {% if customer.default_address.address2 != "" %}
-  <p>{{ customer.default_address.address2 }}</p>
-  {% endif %}
-  <p>{{ customer.default_address.city}}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</p>
-  <p>{{ customer.default_address.zip }}</p>
-  <p>{{ customer.default_address.phone }}</p>
-  {% endif %}{%- endcomment -%}
+    const logoutBtn = document.querySelector('.nav__logout');
+    logoutBtn.addEventListener('click',(e)=>{
+        sessionStorage.removeItem('customerInfo');
+    })
+</script>

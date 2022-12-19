@@ -2,20 +2,31 @@
 
 <div class="banner-img">
     <div class="banner-img__right">
-        <img src="{{ section.settings.image_big.src | img_url: '1000x' }}" alt="" class="right__img">
+        <img src="{{ section.settings.image_big.src | img_url: '1000x' }}" alt="" class="right__img" loading="lazy" width='' height=''>
     </div>
     <div class="banner-img__left">
         <div class="left__img-container">
-            <img src="{{ section.settings.image_small.src | img_url: '462x' }}" alt="" class="left__img">
+            <img src="{{ section.settings.image_small.src | img_url: '462x' }}" alt="" class="left__img" loading="lazy" width='' height=''>
         </div>
         <div class="left__content">
-            <h4 class="title mb--sm">{{section.settings.title_small}}</h4>
-            <h3 class="banner-img__title">{{section.settings.title_big}}</h3>
-            <p class="p--primary mb--bg left__content-p">{{section.settings.banner_img_paragraph}}</p>
-            <a href="{{section.settings.banner_cta_url}}" class="banner-img__cta">
-                {{section.settings.banner_cta}}
+            <h4 class="title mb--sm">{{ section.settings.title_small }}</h4>
+            <h3 class="banner-img__title">{{ section.settings.title_big }}</h3>
+            <p class="p--primary mb--bg left__content-p">{{ section.settings.banner_img_paragraph }}</p>
+            <div class="banner-img__cta-container">
+                <a href="{{ section.settings.banner_cta_url }}" class="banner-img__cta">
+                    {{ section.settings.banner_cta }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="left__content-tablet">
+        <h4 class="title mb--sm">{{ section.settings.title_small }}</h4>
+        <h3 class="banner-img__title">{{ section.settings.title_big }}</h3>
+        <p class="p--primary mb--bg left__content-p">{{ section.settings.banner_img_paragraph }}</p>
+        <div class="banner-img__cta-container">
+            <a href="{{ section.settings.banner_cta_url }}" class="banner-img__cta">
+                {{ section.settings.banner_cta }}
             </a>
-
         </div>
     </div>
 </div>

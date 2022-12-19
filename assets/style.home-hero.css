@@ -15,7 +15,12 @@
     align-self: flex-end;
     max-width: 60rem;
 }
- 
+.homepage-hero__content h1{
+    margin-bottom: 2.4rem;
+}
+.homepage-hero__content p{
+    margin-bottom: 2.4rem;
+}
 .homepage-hero__btn{
     width: 23.6rem;
     height: 5.8rem;
@@ -29,4 +34,18 @@
     letter-spacing: 0.175em;
     font-weight: 400;
     padding: 2.5rem;
+}
+
+@media screen and (max-width:1100px) {
+    .homepage-hero{
+        padding: 0 2.4rem 4rem 2.4rem;
+    }
+    .btn__icon{
+        display: inline-block;
+    }
+}
+@media screen and (max-width:600px) {
+    .homepage-hero{
+        padding: 0 1.6rem 4rem 1.6rem;
+    }
 }
