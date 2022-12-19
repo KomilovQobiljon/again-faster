@@ -15,11 +15,15 @@
 }
 .cell-featured{
     margin-right: 1.6rem;
-    width: 25%;
+    width: 32.8rem !important;
+}
+.cell-featured:hover .product__img{
+    transform: scale(1.1);
 }
 .product__img{
     margin-bottom: 1rem;
     width: 100%;
+    transition: all 0.3s ease-in-out;
 }
 .product__title{
     display: flex;
@@ -36,4 +40,18 @@
 .product__arrow{
     display: none;
     margin-left: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1100px) {
+    .featured-collections{
+        padding: 4rem 2.4rem;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .cell-featured{
+        margin-right: 0.8rem;
+        width: 16.7rem !important;
+    }
 }

@@ -39,6 +39,9 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
+.banner-img__cta-container{
+    height: 1.7rem;
+}
 .banner-img__cta{
     font-family: 'Open Sans';
     font-weight: 400;
@@ -49,7 +52,7 @@
     color: #000000;
     padding-bottom:0.8rem;
     border-bottom: 1px solid #000000;
-    transition: padding 0.2s;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
 .banner-img__cta:hover{
@@ -57,4 +60,39 @@
 }
 .left__content-p{
     color: #8f8f8f;
+}
+.left__content-tablet{
+    display: none;
+}
+
+@media screen and (max-width:1100px) {
+    .left__img-container{
+        width: 100%;
+        padding: 4.4rem 2.4rem 0 3.5rem;
+        margin-bottom: 4rem;
+    }
+    .left__content{
+        display: none;
+    } 
+    .left__content-tablet{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        color: var(--color-primary-1);
+        padding: 4rem 0 0 2rem;
+    }   
+}
+
+@media screen and (max-width:600px) {
+    .left__img-container{
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0 1.6rem;
+        width: 100%;
+        height: 100%;
+    }
+    .left__content-tablet{
+        grid-column: 1/3;
+    }
 }

@@ -1,0 +1,8 @@
+.cta__container{
+    padding: 120px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FBFBFB;
+    color: #000000;
+}
